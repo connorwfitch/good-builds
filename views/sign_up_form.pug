@@ -1,0 +1,23 @@
+extends layout
+
+include utils.pug
+
+block content   
+    h1 Good Builds 
+    h2 Create Account
+    form(action="/users", method="post") 
+        div(class='form-group')
+            label(for='name') Your Name
+            input(type='text' id='name' name='name' class='form-control')
+        div(class='form-group')
+            label(for='email') Email
+            input(type='email' id='email' name='email' class='form-control')
+        div(class='form-group')
+            label(for='password') Password
+            input(type='password' id='password' name='password' class='form-control' placeholder='At least 6 characters')
+        div(class='form-group')
+            label(for='reEnter') Re-enter password
+            input(type='password' id='reEnter' name='reEnter' class='form-control')
+        div(class='form-group')
+            button(type='submit' class='btn') Create account
+
