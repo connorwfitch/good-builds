@@ -7,6 +7,8 @@ html
   body
     .nav-bar
       h2.nav-bar-name GoodBuilds
+      div
+        //- img.legoBanner(src="assets/omar-flores-lQT_bOWtysE-unsplash.jpg")
       if locals.authenticated
         .nav-bar-text
           h3 Welcome #{user.firstName}!
@@ -14,7 +16,11 @@ html
           button(class='btn btn-sm btn-warning' type='submit') Logout
       else
         .nav-bar-text
-          a(class='button' href='/signup') Sign-Up
-          a(class='button' href='/login') Log-In
-    h2= title
+          div.buttons
+            form(action='/signup')
+              button(type="submit" class='button' href='/signup') Sign-Up     
+          div.buttons
+            form(action='/login')
+              button(type="submit" class='button' href='/login') Log-In    
+          //- a(class='button' href='/login') Log-In
     block content
