@@ -9,3 +9,5 @@ npx sequelize model:generate --name Review --attributes title:string,content:tex
 npx sequelize model:generate --name BuildAndShelf --attributes buildStatus:string,buildId:integer,shelfId:integer
 
 npx sequelize model:generate --name BuildAndTheme --attributes buildId:integer,themeId:integer
+
+npx dotenv sequelize db:migrate
