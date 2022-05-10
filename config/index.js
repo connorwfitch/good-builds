@@ -8,6 +8,6 @@ module.exports = {
     host: process.env.DB_HOST,
   },
   sessionSecret: process.env.SESSION_SECRET,
-  seedpass1: process.env.SEEDPASS1,
-  seedpass2: process.env.SEEDPASS2
+  seedpass1: process.env.SEEDPASS1 || 'password',
+  seedpass2: process.env.SEEDPASS2 || 'wordpass'
 };

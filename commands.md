@@ -15,3 +15,7 @@ npx dotenv sequelize db:migrate
 npx sequelize-cli seed:generate --name BuildsSeeder
 
 npx sequelize-cli seed:generate --name UsersSeeder
+
+npx sequelize-cli seed:generate --name ThemesSeeder
+
+npx dotenv sequelize db:seed:all

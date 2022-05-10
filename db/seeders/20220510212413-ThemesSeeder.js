@@ -1,8 +1,4 @@
 'use strict';
-const bcrypt = require('bcryptjs');
-const { seedpass1, seedpass2 } = require('../../config')
-const hash1 = await bcrypt.hash(seedpass1, 12);
-const hash2 = await bcrypt.hash(seedpass2, 12);
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -12,10 +8,15 @@ module.exports = {
 
       Example:
       */
-      return queryInterface.bulkInsert('People', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
+      return queryInterface.bulkInsert('Themes', [
+        {name: "Marvel"},
+        {name: "Star Wars"},
+        {name: "Harry Potter"},
+        {name: "Creator Expert"},
+        {name: "Animal Life"},
+        {name: "Vehicles"},
+        {name: "Adventure"}
+      ], {});
   },
 
   down: (queryInterface, Sequelize) => {
@@ -25,6 +26,6 @@ module.exports = {
 
       Example:
       */
-      return queryInterface.bulkDelete('People', null, {});
+      return queryInterface.bulkDelete('Themes', null, {});
   }
 };
