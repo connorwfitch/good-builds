@@ -11,3 +11,5 @@ npx sequelize model:generate --name BuildAndShelf --attributes buildStatus:strin
 npx sequelize model:generate --name BuildAndTheme --attributes buildId:integer,themeId:integer
 
 npx dotenv sequelize db:migrate
+
+npx dotenv sequelize db:migrate:undo:all

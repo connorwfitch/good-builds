@@ -29,6 +29,8 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'buildId'
     }
     Build.belongsToMany(models.Theme, columnMapTheme);
+
+    Build.belongsTo(models.User, { foreignKey: 'userId' });
   };
   return Build;
 };
