@@ -3,6 +3,7 @@ const express = require('express');
 const { check, validationResult } = require('express-validator');
 
 // internal modules
+const db = require('../db/models');
 const { csrfProtection, asyncHandler, bcrypt } = require('./utils');
 const { loginUser, logoutUser } = require('../auth');
 
@@ -34,14 +35,14 @@ router.post('/signup', csrfProtection, userValidators, asyncHandler(async(req, r
     const {
         firstName,
         lastName,
-        emailAddress,
+        email,
         password
     } = req.body;
 
     const user = db.User.build({
         firstName,
         lastName,
-        emailAddress
+        email
     });
 
     const validatorErrors = validationResult(req);
