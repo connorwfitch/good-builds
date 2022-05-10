@@ -16,6 +16,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   DisplayShelf.associate = function(models) {
     // associations can be defined here
+    DisplayShelf.belongsTo(models.User, { foreignKey: 'userId' });
+    
+    const columnMapping = {
+      through: 'BuildAndShelf', // This is the model name referencing the join table.
+      otherKey: 'buildId',
+      foreignKey: 'shelfId'
+    }
+    DisplayShelf.belongsToMany(models.Build, columnMapping);
   };
   return DisplayShelf;
 };
