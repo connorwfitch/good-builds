@@ -13,9 +13,9 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const signupRouter = require('./routes/signup');
 const { environment, sessionSecret } = require('./config');
+const { restoreUser } = require('./auth');
 
 const app = express();
-//test
 
 // view engine setup
 app.set('view engine', 'pug');
@@ -29,17 +29,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 // set up session middleware
 const store = new SequelizeStore({ db: sequelize });
 
-// app.use(
-//   session({
-//     secret: sessionSecret,
-//     store,
-//     saveUninitialized: false,
-//     resave: false,
-//   })
-// );
+app.use(
+  session({
+    name: 'goodbuilds.sid',
+    secret: sessionSecret,
+    store,
+    saveUninitialized: false,
+    resave: false,
+  })
+);
 
 // create Session table if it doesn't already exist
 store.sync();
+
+// restore user middleware
+app.use(restoreUser);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

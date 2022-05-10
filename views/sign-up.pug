@@ -7,8 +7,11 @@ block content
     h2 Create Account
     form(action="/users", method="post") 
         div(class='form-group')
-            label(for='name') Your Name
-            input(type='text' id='name' name='name' class='form-control')
+            label(for='firstName') First Name
+            input(type='text' id='firstName' name='firstName' class='form-control')
+        div(class='form-group')
+            label(for='lastName') Last Name
+            input(type='text' id='lastName' name='lastName' class='form-control')
         div(class='form-group')
             label(for='email') Email
             input(type='email' id='email' name='email' class='form-control')
