@@ -9,13 +9,13 @@ module.exports = {
       Example:
       */
       return queryInterface.bulkInsert('Themes', [
-        {name: "Marvel"},
-        {name: "Star Wars"},
-        {name: "Harry Potter"},
-        {name: "Creator Expert"},
-        {name: "Animal Life"},
-        {name: "Vehicles"},
-        {name: "Adventure"}
+        {name: "Marvel", createdAt: new Date(), updatedAt: new Date()},
+        {name: "Star Wars", createdAt: new Date(), updatedAt: new Date()},
+        {name: "Harry Potter", createdAt: new Date(), updatedAt: new Date()},
+        {name: "Creator Expert", createdAt: new Date(), updatedAt: new Date()},
+        {name: "Animal Life", createdAt: new Date(), updatedAt: new Date()},
+        {name: "Vehicles", createdAt: new Date(), updatedAt: new Date()},
+        {name: "Adventure", createdAt: new Date(), updatedAt: new Date()}
       ], {});
   },
 
