@@ -2,10 +2,19 @@ doctype html
 html
   head
       block head
-        title="GoodBuilds"
+        title GoodBuilds - #{title}
         link(rel='stylesheet' href='/stylesheets/reset.css')
-        span(class='navbar')
-          a(class='header button' href='/signup' type='button') Sign-Up
-          a(class='header button' href='/login' type='button') Log-In
   body
+    .nav-bar
+      h2.nav-bar-name GoodBuilds
+      if locals.authenticated
+        .nav-bar-text
+          h3 Welcome #{user.firstName}!
+        form(class='inline' action='/logout' method='post')
+          button(class='btn btn-sm btn-warning' type='submit') Logout
+      else
+        .nav-bar-text
+          a(class='button' href='/signup') Sign-Up
+          a(class='button' href='/login') Log-In
+    h2= title
     block content
