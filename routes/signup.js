@@ -64,6 +64,7 @@ const userValidators = [
 router.get('/', csrfProtection, (req, res) => {
     const user = db.User.build();
     res.render('sign-up', {
+        title: 'Sign Up',
         user,
         csrfToken: req.csrfToken(),
     });
