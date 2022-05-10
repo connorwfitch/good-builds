@@ -8,6 +8,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Theme.associate = function(models) {
     // associations can be defined here
+    const columnMapping = {
+      through: 'BuildAndTheme', // This is the model name referencing the join table.
+      otherKey: 'buildId',
+      foreignKey: 'themeId'
+    }
+    Theme.belongsToMany(models.Build, columnMapping);
   };
   return Theme;
 };
