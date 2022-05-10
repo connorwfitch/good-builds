@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     legoItemNumber: DataTypes.INTEGER,
-    pieceCount: DataTypes.INTEGER
+    pieceCount: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER
   }, {});
   Build.associate = function(models) {
     // associations can be defined here
