@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post('/', (req, res) => {
   logoutUser(req, res);
-  res.redirect('/');
+  req.session.save(() => res.redirect('/'));
 });
 
 module.exports = router;

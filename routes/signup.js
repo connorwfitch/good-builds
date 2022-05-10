@@ -93,7 +93,7 @@ router.post('/', csrfProtection, userValidators, asyncHandler(async(req, res) =>
         await user.save();
         loginUser(req, res, user);
         // TODO: decide where we want to redirect users after successful login
-        res.redirect('/');
+        req.session.save(() => res.redirect('/'))
     } else {
         const errors = validatorErrors.array().map((error) => error.msg);
         res.render('sign-up', {
