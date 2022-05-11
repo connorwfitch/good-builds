@@ -14,6 +14,7 @@ const usersRouter = require('./routes/users');
 const signupRouter = require('./routes/signup');
 const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
+const buildsRouter = require('./routes/builds');
 const { environment, sessionSecret } = require('./config');
 const { restoreUser } = require('./auth');
 

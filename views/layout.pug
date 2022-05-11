@@ -7,19 +7,19 @@ html
   body
     .nav-bar
       .nav-bar-text
-        h2 GoodBuilds
-      .nav-bar-text.pages 
-        a(class='page' href='/') Home
-        a(class='page' href='/builds') Browse
-        a(class='page' href='/builds/new') Create A Build
-        a(class='page' href='/') My Profile
+        h2#branding GoodBuilds
+        .nav-bar-text 
+          a(class='nav-page nav-offset' href='/') Home
+          a(class='nav-page nav-offset' href='/builds') Browse
+          a(class='nav-page nav-offset' href='/builds/new') Create A Build
+          a(class='nav-page nav-offset' href='/') My Profile
       if locals.authenticated
         .nav-bar-text
-          h3 Welcome #{user.firstName}!
-        form(class='inline' action='/logout' method='post')
-          button(class='btn btn-sm btn-warning' type='submit') Logout
+          h3#welcome Welcome, #{user.firstName}!
+          form(class='inline' action='/logout' method='post')
+            button(class='button warning' type='submit') Logout
       else
-        .nav-bar-text  
+        .nav-bar-text
           a(class='button' href='/login') Log In
           a(class='button' href='/signup') Sign Up
     div.banner
