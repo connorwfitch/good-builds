@@ -44,11 +44,12 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  padding-bottom: 3rem;
 }
 
 .button {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: rgb(0, 150, 220);
+  background-color: rgb(0, 70, 200);
   border: 1px solid transparent;
   border-radius: 15px;
   text-decoration: none;
@@ -71,7 +72,7 @@ body {
 }
 
 .button.warning {
-  background-color: rgb(255, 60, 40);
+  background-color: rgb(200, 45, 30);
 }
 
 #branding {
@@ -134,10 +135,36 @@ body {
 }
 
 .alert {
-  border: 2px solid rgb(255, 60, 40);
+  border: 2px solid rgb(200, 45, 30);
   border-radius: 15px;
   background-color: rgb(250, 140, 130);
   padding: 10px;
   width: auto;
   max-width: 40%;
+}
+
+.build-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.grid-container {
+  border: 2px solid rgb(0, 70, 200);
+  width: 250px;
+  height: 250px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-container:hover {
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.75);
+}
+
+.grid-image {
+  max-width: 200px;
+  max-height: 200px;
 }
