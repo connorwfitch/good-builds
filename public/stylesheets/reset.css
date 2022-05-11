@@ -40,6 +40,7 @@ body {
 }
 
 .button {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: rgb(127, 202, 255);
   border: 1px solid transparent;
   border-radius: 15px;
@@ -66,7 +67,7 @@ body {
 }
 
 form {
-  width: 100%;
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,13 +75,15 @@ form {
 }
 
 .form-group {
-  width: 40%;
+  width: 100%;
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 140px 1fr;
+  gap: 1rem;
+  text-align: right;
 }
 
 .form-end {
-  width: 40%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
