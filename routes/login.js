@@ -32,7 +32,7 @@ const loginValidators = [
 router.get('/', csrfProtection, (req, res) => {
     const user = db.User.build();
     res.render('login', {
-        title: 'Login',
+        title: 'Log In',
         csrfToken: req.csrfToken(),
     });
 });
