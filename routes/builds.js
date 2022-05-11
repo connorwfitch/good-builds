@@ -46,6 +46,16 @@ const buildValidators = [
 --------------ROUTES--------------
 */
 
+// GET all builds on browse page
+router.get('/', asyncHandler(async (req, res) => {
+  const builds = await db.Build.findAll();
+
+  res.render('builds-browse', { 
+    title: 'Builds',
+    builds 
+  });
+}));
+
 // GET new build page.
 router.get('/new', requireAuth, csrfProtection, (req, res) => {
   const build = db.Build.build();
@@ -57,7 +67,7 @@ router.get('/new', requireAuth, csrfProtection, (req, res) => {
 });
 
 // POST new build page
-router.post('/new', requireAuth, csrfProtection, buildValidators, asyncHandler(async (req, res) => {
+router.post('/', requireAuth, csrfProtection, buildValidators, asyncHandler(async (req, res) => {
   const {
     name,
     imageLink,
@@ -85,7 +95,7 @@ router.post('/new', requireAuth, csrfProtection, buildValidators, asyncHandler(a
 
   if (validatorErrors.isEmpty()) {
     await build.save();
-    req.session.save(() => res.redirect('/'))
+    req.session.save(() => res.redirect('/builds'))
   } else {
     const errors = validatorErrors.array().map((error) => error.msg);
     res.render('new-build', {
@@ -95,6 +105,13 @@ router.post('/new', requireAuth, csrfProtection, buildValidators, asyncHandler(a
       csrfToken: req.csrfToken(),
     });
   }
+}));
+
+// GET build by id
+router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
+  const buildId = parseInt(req.params.id);
+  const build = await db.Build.findByPk(buildId);
+  res.render('build-detail', { title: build.name, build });
 }));
 
 module.exports = router;

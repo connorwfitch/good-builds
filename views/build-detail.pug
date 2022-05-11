@@ -1,0 +1,10 @@
+extends layout
+
+include utils.pug
+
+block content
+  .build-image 
+    img(src=build.imageLink, alt=`Image of ${build.name}`)
+  .build-info
+    p Piece Count: #{build.pieceCount}
+    p Lego Item Number: #{build.legoItemNumber}

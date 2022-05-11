@@ -1,0 +1,9 @@
+extends layout
+
+include utils.pug
+
+block content
+  .build-grid 
+    each build in builds 
+      div(id=`grid-container-${build.id}`).grid-container
+        img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image

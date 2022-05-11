@@ -34,8 +34,8 @@ body {
   object-position: 20% 10%;
   height: 200px;
   width: 100%;
-  left: 0px;
-  top: 200px;
+  /* left: 0px; */
+  /* top: 200px; */
 }
 
 .main {
