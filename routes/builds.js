@@ -25,6 +25,14 @@ const buildValidators = [
     .withMessage('Please provide a value for Image Link'),
   check('legoItemNumber')
     .custom((value) => {
+      // automatic promise resolve if there is no legoitem number
+      if(!value) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve();
+          }, 1);
+        })
+      }
       return db.Build.findOne({ where: { legoItemNumber: value } })
         .then((build) => {
           if (build) {
@@ -62,10 +70,16 @@ router.post('/new', requireAuth, csrfProtection, buildValidators, asyncHandler(a
   const build = db.Build.build({
     name,
     imageLink,
-    legoItemNumber,
-    pieceCount,
     userId
   });
+
+  if (legoItemNumber) {
+    build.legoItemNumber = legoItemNumber;
+  }
+
+  if (pieceCount) {
+    build.pieceCount = pieceCount;
+  }
 
   const validatorErrors = validationResult(req);
 
@@ -76,7 +90,7 @@ router.post('/new', requireAuth, csrfProtection, buildValidators, asyncHandler(a
     const errors = validatorErrors.array().map((error) => error.msg);
     res.render('new-build', {
       title: 'Create New Build',
-      user,
+      build,
       errors,
       csrfToken: req.csrfToken(),
     });
