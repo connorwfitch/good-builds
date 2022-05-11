@@ -6,7 +6,13 @@ html
         link(rel='stylesheet' href='/stylesheets/reset.css')
   body
     .nav-bar
-      h2.nav-bar-name GoodBuilds
+      .nav-bar-text
+        h2 GoodBuilds
+      .nav-bar-text.pages 
+        a(class='page' href='/') Home
+        a(class='page' href='/builds') Browse
+        a(class='page' href='/builds/new') Create A Build
+        a(class='page' href='/') My Profile
       if locals.authenticated
         .nav-bar-text
           h3 Welcome #{user.firstName}!
