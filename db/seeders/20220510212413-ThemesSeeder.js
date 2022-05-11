@@ -15,7 +15,12 @@ module.exports = {
         {name: "Creator Expert", createdAt: new Date(), updatedAt: new Date()},
         {name: "Animal Life", createdAt: new Date(), updatedAt: new Date()},
         {name: "Vehicles", createdAt: new Date(), updatedAt: new Date()},
-        {name: "Adventure", createdAt: new Date(), updatedAt: new Date()}
+        {name: "Adventure", createdAt: new Date(), updatedAt: new Date()},
+        {name: "Disney", createdAt: new Date(), updatedAt: new Date()},
+        {name: "Minecraft", createdAt: new Date(), updatedAt: new Date()},
+        {name: "Technic", createdAt: new Date(), updatedAt: new Date()},
+        {name: "Architecture", createdAt: new Date(), updatedAt: new Date()},
+        {name: "DC", createdAt: new Date(), updatedAt: new Date()}
       ], {});
   },
 

@@ -1,14 +1,7 @@
 'use strict';
 const bcrypt = require('bcryptjs');
-const { seedpass1, seedpass2 } = require('../../config');
-// console.log(seedpass2);
-// async function makeHashes() {
-  // const hash1 = await bcrypt.hash(seedpass1, 12);
-  // const hash2 = bcrypt.hashSync(seedpass2, 12);
-  //   return {hash1:hash1, hash2:hash2};
-  // }
-  // const {hash1, hash2} = makeHashes();
-  // console.log(hash2);
+const { seedpass } = require('../../config');
+
   module.exports = {
     up: (queryInterface, Sequelize) => {
       /*
@@ -18,8 +11,16 @@ const { seedpass1, seedpass2 } = require('../../config');
       Example:
       */
      return queryInterface.bulkInsert('Users', [
-       {firstName: "Dan", lastName: "Chin", email: "dan@gmail.com", hashedPassword: bcrypt.hashSync(seedpass1, 12), createdAt: new Date(), updatedAt: new Date()},
-       {firstName: "Alec", lastName: "Keeler", email: "akeel@gmail.com", hashedPassword: bcrypt.hashSync(seedpass2, 12), createdAt: new Date(), updatedAt: new Date()}
+       {firstName: "Dan", lastName: "Chin", email: "dan@gmail.com", hashedPassword: bcrypt.hashSync(seedpass, 12), createdAt: new Date(), updatedAt: new Date()},
+       {firstName: "Alec", lastName: "Keeler", email: "akeel@gmail.com", hashedPassword: bcrypt.hashSync(seedpass, 12), createdAt: new Date(), updatedAt: new Date()},
+       {firstName: "Khali", lastName: "Hill", email: "Khali@scruff.com", hashedPassword: bcrypt.hashSync(seedpass, 12), createdAt: new Date(), updatedAt: new Date()},
+       {firstName: "Grant", lastName: "Christopherson", email: "Grant@gmail.com", hashedPassword: bcrypt.hashSync(seedpass, 12), createdAt: new Date(), updatedAt: new Date()},
+       {firstName: "Christian", lastName: "Carteno", email: "Christian@aol.com", hashedPassword: bcrypt.hashSync(seedpass, 12), createdAt: new Date(), updatedAt: new Date()},
+       {firstName: "Connor", lastName: "Fitch", email: "Connir@hotmail.com", hashedPassword: bcrypt.hashSync(seedpass, 12), createdAt: new Date(), updatedAt: new Date()},
+       {firstName: "Britney", lastName: "Spears", email: "dontpickonme@gmail.com", hashedPassword: bcrypt.hashSync(seedpass, 12), createdAt: new Date(), updatedAt: new Date()},
+       {firstName: "Moses", lastName: "Sumney", email: "personaljesus@yahoo.com", hashedPassword: bcrypt.hashSync(seedpass, 12), createdAt: new Date(), updatedAt: new Date()},
+       {firstName: "James", lastName: "Murphy", email: "LCD@aol.com", hashedPassword: bcrypt.hashSync(seedpass, 12), createdAt: new Date(), updatedAt: new Date()},
+       {firstName: "Beyonce", lastName: "Knowles", email: "QueenBee@gmail.com", hashedPassword: bcrypt.hashSync(seedpass, 12), createdAt: new Date(), updatedAt: new Date()},
       ], {});
   },
 
