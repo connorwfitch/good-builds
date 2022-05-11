@@ -7,6 +7,7 @@ body {
   display: flex;
   flex-direction: column;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  align-items: center;
 }
 
 .nav-bar {
@@ -15,18 +16,10 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0px 10px;
-}
-
-h1 {
-  font-size: 2rem;
+  width: 100%;
 }
 
 .nav-bar-name {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 36px;
-  line-height: 43px;
-
   color: #000000;
 }
 
@@ -34,7 +27,7 @@ h1 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  gap: 10px;
 }
 
 .legoBanner{
@@ -47,12 +40,49 @@ h1 {
 }
 
 .button {
-  background-color: aquamarine;
-  border: 0px solid black;
+  background-color: rgb(127, 202, 255);
+  border: 1px solid transparent;
   border-radius: 15px;
   text-decoration: none;
   color: black;
-  width: 60px;
+  width: auto;
   height: 30px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 5px;
+}
+
+.button:hover {
+  border: 1px solid black;
+}
+
+.button:active {
+  opacity: .7;
+}
+
+.button.warning {
+  background-color: red;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form-group {
+  width: 40%;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.form-end {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10%;
 }
