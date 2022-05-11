@@ -1,27 +1,58 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
-}
-
 * {
   box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6, a, ol, li, ul, div, span,
-body, header, nav {
-  font-size: 1rem;
-  color: inherit;
-  background-color: transparent;
+body {
   margin: 0;
-  padding: 0;
-  outline: 0;
-  font-weight: normal;
+  display: flex;
+  flex-direction: column;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
 }
 
 h1 {
   font-size: 2rem;
+}
+
+.nav-bar-name {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 43px;
+
+  color: #000000;
+}
+
+.nav-bar-text{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.legoBanner{
+  object-fit: cover;
+  object-position: 20% 10%;
+  height: 100px;
+  width: 100%;
+  left: 0px;
+  top: 200px;
+}
+
+.button {
+  background-color: aquamarine;
+  border: 0px solid black;
+  border-radius: 15px;
+  text-decoration: none;
+  color: black;
+  width: 60px;
+  height: 30px;
+  text-align: center;
 }

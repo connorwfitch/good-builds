@@ -14,7 +14,14 @@ html
           button(class='btn btn-sm btn-warning' type='submit') Logout
       else
         .nav-bar-text
-          a(class='button' href='/signup') Sign-Up
-          a(class='button' href='/login') Log-In
-    h2= title
+          //- div.buttons
+          //-   form(action='/signup')
+          //-     button(type="submit" class='button' href='/signup') Sign-Up     
+          //- div.buttons
+          //-   form(action='/login')
+          //-     button(type="submit" class='button' href='/login') Log-In    
+          a(class='button' href='/login') Log In
+          a(class='button' href='/login') Sign Up
+    div
+        img.legoBanner(src="assets/omar-flores-lQT_bOWtysE-unsplash.jpg")
     block content
