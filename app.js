@@ -48,11 +48,14 @@ store.sync();
 // restore user middleware
 app.use(restoreUser);
 
+
+// custom routers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
+app.use('/builds', buildsRouter);
 
 
 // catch 404 and forward to error handler

@@ -1,0 +1,17 @@
+extends layout
+
+include utils.pug
+
+block content
+    +validationErrorSummary(errors)
+    form(class='form', action="/builds/new", method="post") 
+        input(type='hidden' name='_csrf' value=csrfToken)
+        +field('Name', 'name', build.name)
+        +field('Image Link', 'imageLink', build.imageLink)
+        +field('Lego Item Number', 'legoItemNumber', build.legoItemNumber, 'number')
+        +field('Piece Count', 'pieceCount', build.pieceCount, 'number')
+        +field('Password', 'password', '', 'password', 'At least 6 characters')
+        +field('Confirm Password', 'confirmPassword', '', 'password')
+        div(class='form-end')
+            a(href='/' class='button warning') Cancel
+            button(type='submit' class='button') Create Account
