@@ -12,4 +12,11 @@ npx sequelize model:generate --name BuildAndTheme --attributes buildId:integer,t
 
 npx dotenv sequelize db:migrate
 
+npx sequelize-cli seed:generate --name BuildsSeeder
+
+npx sequelize-cli seed:generate --name UsersSeeder
+
+npx sequelize-cli seed:generate --name ThemesSeeder
+
+npx dotenv sequelize db:seed:all
 npx dotenv sequelize db:migrate:undo:all
