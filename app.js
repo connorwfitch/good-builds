@@ -14,6 +14,7 @@ const usersRouter = require('./routes/users');
 const signupRouter = require('./routes/signup');
 const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
+const buildsRouter = require('./routes/builds');
 const { environment, sessionSecret } = require('./config');
 const { restoreUser } = require('./auth');
 
@@ -47,11 +48,14 @@ store.sync();
 // restore user middleware
 app.use(restoreUser);
 
+
+// custom routers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
+app.use('/builds', buildsRouter);
 
 
 // catch 404 and forward to error handler
