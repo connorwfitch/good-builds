@@ -1,0 +1,13 @@
+extends layout
+
+include utils.pug
+
+block content
+  +validationErrorSummary(errors)
+  form(class='form', action=`/users/${user.id}`, method="post") 
+    input(type='hidden' name='_csrf' value=csrfToken)
+    +field('First Name', 'firstName', user.firstName)
+    +field('Last Name', 'lastName', user.lastName)
+    div(class='form-end')
+      a(href=`/users/${user.id}` class='button warning') Cancel
+      button(type='submit' class='button') Edit Profile
