@@ -18,6 +18,12 @@ npx sequelize-cli seed:generate --name UsersSeeder
 
 npx sequelize-cli seed:generate --name ThemesSeeder
 
+npx sequelize-cli seed:generate --name DisplayShelvesSeeder
+
+npx sequelize-cli seed:generate --name BuildAndShelvesSeeder
+
+npx sequelize-cli seed:generate --name BuildAndThemesSeeder
+
 npx dotenv sequelize db:seed:all
 npx dotenv sequelize db:migrate:undo:all
 

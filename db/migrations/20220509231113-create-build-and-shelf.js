@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('BuildsAndShelves', {
+    return queryInterface.createTable('BuildAndShelves', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -39,6 +39,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('BuildsAndShelves');
+    return queryInterface.dropTable('BuildAndShelves');
   }
 };
