@@ -4,7 +4,7 @@ const { check, validationResult } = require('express-validator');
 
 // internal modules
 const { csrfProtection, asyncHandler, bcrypt } = require('./utils');
-const { loginUser } = require('../auth');
+const { loginUser, logoutUser } = require('../auth');
 const db = require("../db/models");
 
 // creating router
@@ -30,7 +30,10 @@ const loginValidators = [
 
 // GET login page.
 router.get('/', csrfProtection, (req, res) => {
-    const user = db.User.build();
+    if(res.locals.authenticated) {
+        logoutUser(req, res);
+        req.session.save(res.redirect('/login'));
+    }
     res.render('login', {
         title: 'Log In',
         csrfToken: req.csrfToken(),
