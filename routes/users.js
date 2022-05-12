@@ -5,7 +5,7 @@ const { check, validationResult } = require('express-validator');
 // internal modules
 const db = require('../db/models');
 const { asyncHandler, csrfProtection } = require('./utils');
-const { requireAuth } = require('../auth');
+const { requireAuth, logoutUser } = require('../auth');
 
 const router = express.Router();
 
@@ -36,7 +36,7 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-/* GET user's first and last name and all their shelves */
+/* GET user's first and last name and all their builds and shelves */
 router.get('/:id(\\d+)', asyncHandler(async(req, res) => { 
   const userId = parseInt(req.params.id, 10);
 
@@ -47,19 +47,26 @@ router.get('/:id(\\d+)', asyncHandler(async(req, res) => {
     }
   });
 
-  console.log('---------------------', userDetail);
-
   res.render('user-detail', {
     title: `${userDetail.firstName} ${userDetail.lastName}`,
     userDetail
   });
 }));
 
+// GET user edit page
 router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
   const userId = parseInt(req.params.id, 10);
+  // checking to make sure the editor is the user themselves
   if(userId !== res.locals.user.id) {
-
+    // if not the user, add an error message and redirect them to log in
+    // want to pass this error in somehow
+    errors = ['Must be logged in as the user to edit the profile'];
+    return res.redirect('/login');
   }
+  res.render('user-edit', {
+    title: "Edit User Profile",
+    user: res.locals.user
+  })
 }));
 
 module.exports = router;
