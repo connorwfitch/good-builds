@@ -25,3 +25,14 @@ block content
       tr
         th.th-body Average Rating
         td 
+  .reviews-container 
+    h2 Add A Review
+    form(class='form')
+      +field('Title', 'title')
+      div(class='form-group')
+        label(for='rating') Rating (0-5)
+        input(type='number' id='rating' name='rating' value=5 min=0 max=5 class='form-control')
+      +field('Content', 'content', '', 'textarea')
+      div(class='form-end')
+          button(type='reset' class='button warning') Cancel
+          a(class='button') Add Review

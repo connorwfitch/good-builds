@@ -110,16 +110,18 @@ body {
 .form-group {
   width: 100%;
   display: grid;
-  grid-template-rows: 1fr 24px;
-  gap: 0.5rem;
+  grid-template-rows: auto 1fr;
+  gap: 12px;
 }
 
 .form-control {
+  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
   border-radius: 15px;
   border-width: 0px;
   background-color: #e5e5e5;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  padding: 0px 10px;
+  padding: 4px 10px;
+  resize: none;
 }
 
 .form-end {
@@ -216,4 +218,11 @@ tr:nth-child(even) {
 
 td {
   text-align: right;
+}
+
+.reviews-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
