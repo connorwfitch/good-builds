@@ -12,7 +12,10 @@ html
           a(class='nav-page nav-offset' href='/') Home
           a(class='nav-page nav-offset' href='/builds') Browse
           a(class='nav-page nav-offset' href='/builds/new') Create A Build
-          a(class='nav-page nav-offset' href='/') My Profile
+          if locals.authenticated
+            a(class='nav-page nav-offset' href=`/users/${locals.user.id}`) My Profile
+          else
+            a(class='nav-page nav-offset' href='/login') My Profile
       if locals.authenticated
         .nav-bar-text
           h3#welcome Welcome, #{user.firstName}!
@@ -23,7 +26,7 @@ html
           a(class='button' href='/login') Log In
           a(class='button' href='/signup') Sign Up
     div.banner
-        img.legoBanner(src="assets/omar-flores-lQT_bOWtysE-unsplash.jpg")
+        img.legoBanner(src="https://legoops.files.wordpress.com/2013/05/cropped-lego-banner.jpg")
     h1=title
     .main
       block content

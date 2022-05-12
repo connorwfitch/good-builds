@@ -1,0 +1,38 @@
+extends layout
+
+include utils.pug
+
+block content
+  img(src=build.imageLink, alt=`Image of ${build.name}`).detail-image
+  table.build-info
+    thead 
+      tr 
+        th.th-head Data
+        th.th-head Value
+    tbody 
+      tr 
+        th.th-body Name
+        td= build.name
+      tr 
+        th.th-body Piece Count
+        td= build.pieceCount
+      tr 
+        th.th-body Lego Item Number
+        td= build.legoItemNumber
+      tr 
+        th.th-body Themes 
+        td 
+      tr
+        th.th-body Average Rating
+        td 
+  .reviews-container 
+    h2 Add A Review
+    form(class='form')
+      +field('Title', 'title')
+      div(class='form-group')
+        label(for='rating') Rating (0-5)
+        input(type='number' id='rating' name='rating' value=5 min=0 max=5 class='form-control')
+      +field('Content', 'content', '', 'textarea')
+      div(class='form-end')
+          button(type='reset' class='button warning') Cancel
+          a(class='button') Add Review

@@ -34,8 +34,8 @@ body {
   object-position: 20% 10%;
   height: 200px;
   width: 100%;
-  left: 0px;
-  top: 200px;
+  /* left: 0px; */
+  /* top: 200px; */
 }
 
 .main {
@@ -44,11 +44,12 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  padding-bottom: 3rem;
 }
 
 .button {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: rgb(0, 150, 220);
+  background-color: rgb(0, 70, 200);
   border: 1px solid transparent;
   border-radius: 15px;
   text-decoration: none;
@@ -71,7 +72,7 @@ body {
 }
 
 .button.warning {
-  background-color: rgb(255, 60, 40);
+  background-color: rgb(200, 45, 30);
 }
 
 #branding {
@@ -109,16 +110,18 @@ body {
 .form-group {
   width: 100%;
   display: grid;
-  grid-template-rows: 1fr 24px;
-  gap: 0.5rem;
+  grid-template-rows: auto 1fr;
+  gap: 12px;
 }
 
 .form-control {
+  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
   border-radius: 15px;
   border-width: 0px;
   background-color: #e5e5e5;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  padding: 0px 10px;
+  padding: 4px 10px;
+  resize: none;
 }
 
 .form-end {
@@ -134,10 +137,92 @@ body {
 }
 
 .alert {
-  border: 2px solid rgb(255, 60, 40);
+  border: 2px solid rgb(200, 45, 30);
   border-radius: 15px;
   background-color: rgb(250, 140, 130);
   padding: 10px;
   width: auto;
   max-width: 40%;
+}
+
+.build-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.grid-container {
+  border: 0px solid rgb(0, 70, 200);
+  width: 250px;
+  height: 250px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.grid-container:hover {
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.75);
+}
+
+.grid-image {
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.grid-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add {
+  background-color: rgb(0, 140, 60);
+}
+
+.grid-rating {
+  margin: 5px 0px;
+}
+
+.detail-image {
+  max-width: 400px;
+  max-height: 400px;
+}
+
+.build-info{
+  border-collapse: collapse;
+  width: 40%;
+  border: 0px solid transparent;
+  border-radius: 15px;
+}
+
+.build-info * {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #e5e5e5;
+}
+
+.th-head {
+  background-color: rgb(0, 140, 60);
+  color: white;
+}
+
+.th-body {
+  text-align: left;
+}
+
+td {
+  text-align: right;
+}
+
+.reviews-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
