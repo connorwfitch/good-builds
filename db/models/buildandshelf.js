@@ -16,6 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   BuildAndShelf.associate = function(models) {
     // associations can be defined here
+    BuildAndShelf.belongsTo(models.Build, { foreignKey: 'buildId' });
+    BuildAndShelf.belongsTo(models.DisplayShelf, { foreignKey: 'shelfId' });
   };
   return BuildAndShelf;
 };
