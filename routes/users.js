@@ -1,8 +1,35 @@
+// external modules
 const express = require('express');
-const req = require('express/lib/request');
+const { check, validationResult } = require('express-validator');
+
+// internal modules
 const db = require('../db/models');
-const { asyncHandler, bcrypt } = require('./utils');
+const { asyncHandler, csrfProtection } = require('./utils');
+const { requireAuth } = require('../auth');
+
 const router = express.Router();
+
+/*
+--------------VALIDATORS--------------
+*/
+
+const userValidators = [
+  check('firstName')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for First Name')
+    .isLength({ max: 50 })
+    .withMessage('First Name must not be more than 50 characters long'),
+  check('lastName')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Last Name')
+    .isLength({ max: 50 })
+    .withMessage('Last Name must not be more than 50 characters long'),
+];
+
+
+/*
+--------------ROUTES--------------
+*/
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -12,12 +39,27 @@ router.get('/', function(req, res, next) {
 /* GET user's first and last name and all their shelves */
 router.get('/:id(\\d+)', asyncHandler(async(req, res) => { 
   const userId = parseInt(req.params.id, 10);
-  console.log("TEST", userId)
-  const user = await db.User.findByPk(userId)//, {
-    //include: DisplayShelf                     //we'll include Builds too
- // })
-  console.log("TEST2", user)
-  res.render('user-detail', { user });
+
+  // need to call this something other than user otherwise we get into issues with overwriting res.locals.user
+  const userDetail = await db.User.findByPk(userId, {
+    include: {
+      model: db.Build
+    }
+  });
+
+  console.log('---------------------', userDetail);
+
+  res.render('user-detail', {
+    title: `${userDetail.firstName} ${userDetail.lastName}`,
+    userDetail
+  });
+}));
+
+router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
+  const userId = parseInt(req.params.id, 10);
+  if(userId !== res.locals.user.id) {
+
+  }
 }));
 
 module.exports = router;

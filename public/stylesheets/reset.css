@@ -220,6 +220,13 @@ td {
   text-align: right;
 }
 
+.reviews-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .reviews-container {
   display: flex;
   flex-direction: column;
