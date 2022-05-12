@@ -183,3 +183,37 @@ body {
 .grid-rating {
   margin: 5px 0px;
 }
+
+.detail-image {
+  max-width: 400px;
+  max-height: 400px;
+}
+
+.build-info{
+  border-collapse: collapse;
+  width: 40%;
+  border: 0px solid transparent;
+  border-radius: 15px;
+}
+
+.build-info * {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #e5e5e5;
+}
+
+.th-head {
+  background-color: rgb(0, 140, 60);
+  color: white;
+}
+
+.th-body {
+  text-align: left;
+}
+
+td {
+  text-align: right;
+}

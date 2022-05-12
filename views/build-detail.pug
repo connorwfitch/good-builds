@@ -3,8 +3,25 @@ extends layout
 include utils.pug
 
 block content
-  .build-image 
-    img(src=build.imageLink, alt=`Image of ${build.name}`)
-  .build-info
-    p Piece Count: #{build.pieceCount}
-    p Lego Item Number: #{build.legoItemNumber}
+  img(src=build.imageLink, alt=`Image of ${build.name}`).detail-image
+  table.build-info
+    thead 
+      tr 
+        th.th-head Data
+        th.th-head Value
+    tbody 
+      tr 
+        th.th-body Name
+        td= build.name
+      tr 
+        th.th-body Piece Count
+        td= build.pieceCount
+      tr 
+        th.th-body Lego Item Number
+        td= build.legoItemNumber
+      tr 
+        th.th-body Themes 
+        td 
+      tr
+        th.th-body Average Rating
+        td 
