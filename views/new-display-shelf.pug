@@ -1,0 +1,13 @@
+extends layout
+
+include utils.pug
+
+block content
+  +validationErrorSummary(errors)
+  form(class='form', action="/builds", method="post") 
+    input(type='hidden' name='_csrf' value=csrfToken)
+    +field('Title', 'title', displayShelf.title)
+    +field('Subtitle', 'subtitle', displayShelf.subtitle)
+    div(class='form-end')
+      a(href='/' class='button warning') Cancel
+      button(type='submit' class='button') Create Display Shelf

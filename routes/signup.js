@@ -13,7 +13,6 @@ const router = express.Router();
 /*
 --------------VALIDATORS--------------
 */
-// TODO: add sign up validations
 
 const userValidators = [
     check('firstName')
