@@ -96,7 +96,7 @@ router.post('/', requireAuth, csrfProtection, buildValidators, asyncHandler(asyn
 
   if (validatorErrors.isEmpty()) {
     await build.save();
-    req.session.save(() => res.redirect('/builds'))
+    req.session.save(() => res.redirect(`builds/${build.id}`))
   } else {
     const errors = validatorErrors.array().map((error) => error.msg);
     res.render('new-build', {
