@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING.BINARY
     },
+    imageLink: DataTypes.TEXT
   }, {});
   User.associate = function(models) {
     // associations can be defined here

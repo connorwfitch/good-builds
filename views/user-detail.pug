@@ -3,7 +3,10 @@ extends layout
 include utils.pug
 
 block content
-  img(src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png", alt="Default user image").detail-image
+  if userDetail.imageLink 
+    img(src=userDetail.imageLink, alt="User image").detail-image
+  else
+    img(src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png", alt="Default user image").detail-image
   if locals.user.id === userDetail.id 
     .side-by-side
       a(href=`/users/${userDetail.id}/edit`).button Edit My Profile
