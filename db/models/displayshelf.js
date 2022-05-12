@@ -24,6 +24,8 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'shelfId'
     }
     DisplayShelf.belongsToMany(models.Build, columnMapping);
+
+    DisplayShelf.hasMany(models.BuildAndShelf, { foreignKey: 'shelfId', onDelete: 'CASCADE', hooks: true });
   };
   return DisplayShelf;
 };

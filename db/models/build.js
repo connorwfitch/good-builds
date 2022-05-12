@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Build.associate = function(models) {
     // associations can be defined here
-    Build.hasMany(models.Review, { foreignKey: 'buildId' });
+    Build.hasMany(models.Review, { foreignKey: 'buildId', onDelete: 'CASCADE', hooks: true });
 
     const columnMapShelf = {
       through: 'BuildAndShelf', // This is the model name referencing the join table.
@@ -32,6 +32,9 @@ module.exports = (sequelize, DataTypes) => {
     Build.belongsToMany(models.Theme, columnMapTheme);
 
     Build.belongsTo(models.User, { foreignKey: 'userId' });
+
+    Build.hasMany(models.BuildAndTheme, { foreignKey: 'buildId', onDelete: 'CASCADE', hooks: true });
+    Build.hasMany(models.BuildAndShelf, { foreignKey: 'buildId', onDelete: 'CASCADE', hooks: true });
   };
   return Build;
 };
