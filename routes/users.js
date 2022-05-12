@@ -59,15 +59,16 @@ router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async(re
   // checking to make sure the editor is the user themselves
   if(userId !== res.locals.user.id) {
     // if not the user, add an error message and redirect them to log in
-    // want to pass this error in somehow
-    errors = ['Must be logged in as the user to edit the profile'];
+    // ideally want to pass this error in somehow
+    // errors = ['Must be logged in as the user to edit the profile'];
     return res.redirect('/login');
+  } else {
+    res.render('user-edit', {
+      title: "Edit User Profile",
+      user: res.locals.user,
+      csrfToken: req.csrfToken(),
+    });
   }
-  res.render('user-edit', {
-    title: "Edit User Profile",
-    user: res.locals.user,
-    csrfToken: req.csrfToken(),
-  })
 }));
 
 // POST user (for edits)
