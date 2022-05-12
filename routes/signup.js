@@ -62,6 +62,11 @@ const userValidators = [
 
 // GET sign up page.
 router.get('/', csrfProtection, (req, res) => {
+    if (res.locals.authenticated) {
+        logoutUser(req, res);
+        req.session.save(res.redirect('/signup'));
+    }
+
     const user = db.User.build();
     res.render('sign-up', {
         title: 'Sign Up',
