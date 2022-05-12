@@ -65,8 +65,37 @@ router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async(re
   }
   res.render('user-edit', {
     title: "Edit User Profile",
-    user: res.locals.user
+    user: res.locals.user,
+    csrfToken: req.csrfToken(),
   })
 }));
+
+// POST user (for edits)
+router.post('/:id(\\d+)', csrfProtection, userValidators, asyncHandler(async (req, res) => {
+  const {
+    firstName,
+    lastName
+  } = req.body;
+
+  const user = res.locals.user;
+
+  const validatorErrors = validationResult(req);
+
+  if (validatorErrors.isEmpty()) {
+    user.firstName = firstName;
+    user.lastName = lastName;
+    await user.save();
+    req.session.save(() => res.redirect(`/users/${user.id}`))
+  } else {
+    const errors = validatorErrors.array().map((error) => error.msg);
+    res.render('user-edit', {
+      title: 'Edit User Profile',
+      user,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
+  }
+}));
+
 
 module.exports = router;
