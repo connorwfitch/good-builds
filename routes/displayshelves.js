@@ -31,9 +31,20 @@ const displayShelfValidators = [
 --------------ROUTES--------------
 */
 
+// // GET Display Shelf on browse page
+// router.get('/', asyncHandler(async (req, res) => {
+//   const displayShelves = await db.DisplayShelf.findAll();
+
+//   res.render('displayShelves-browse', { 
+//     title: 'Display Shelves',
+//     displayShelves,
+//   });
+// }));
+
 // GET new display shelf page.
 router.get('/new', requireAuth, csrfProtection, (req, res) => {
     const displayShelf = db.DisplayShelf.build();
+
     res.render('new-displayShelf', {
       title: 'Create New Display Shelf',
       displayShelf,
@@ -44,7 +55,7 @@ router.get('/new', requireAuth, csrfProtection, (req, res) => {
 
 
 // POST new display shelf page.
-router.post('/new', requireAuth, csrfProtection, displayShelfValidators, asyncHandler(async (req, res) => {
+router.post('/'/* does this need to be "/new"? */, requireAuth, csrfProtection, displayShelfValidators, asyncHandler(async (req, res) => {
     const {
       title,
       subtitle
@@ -70,7 +81,7 @@ router.post('/new', requireAuth, csrfProtection, displayShelfValidators, asyncHa
   
     if (validatorErrors.isEmpty()) {
       await displayShelf.save();
-      req.session.save(() => res.redirect('/'))
+      req.session.save(() => res.redirect(`displayShelves/${displayShelf.id}`))
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
       res.render('new-displayShelf', {
