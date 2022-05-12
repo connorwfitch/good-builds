@@ -37,7 +37,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET user's first and last name and all their builds and shelves */
-router.get('/:id(\\d+)', asyncHandler(async(req, res) => { 
+router.get('/:id(\\d+)', requireAuth, asyncHandler(async(req, res) => { 
   const userId = parseInt(req.params.id, 10);
 
   // need to call this something other than user otherwise we get into issues with overwriting res.locals.user
@@ -72,7 +72,7 @@ router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, (req, res) => {
 });
 
 // POST user (for edits)
-router.post('/:id(\\d+)', csrfProtection, userValidators, asyncHandler(async (req, res) => {
+router.post('/:id(\\d+)', requireAuth, csrfProtection, userValidators, asyncHandler(async (req, res) => {
   const {
     firstName,
     lastName
