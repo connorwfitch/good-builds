@@ -1,0 +1,41 @@
+extends layout
+
+include utils.pug
+
+block content
+  +validationErrorSummary(errors)   
+  
+  img(src=build.imageLink, alt=`Image of ${build.name}`).detail-image
+  form(class='form', action=`/builds/${build.id}`, method="post")
+    table.build-info
+      thead 
+        tr 
+        th.th-head Data
+        th.th-head Value
+        tbody
+        tr  
+          th.th-body Name
+          td
+            input(type=text name=name value=build.name class='form-control')
+            input(type='hidden' name='_csrf' value=csrfToken)
+        tr 
+          th.th-body Piece Count
+          td 
+            input(type=number name=pieceCount value=build.pieceCount class='form-control')
+        tr 
+          th.th-body Lego Item Number
+          td
+            input(type=number name=legoItemNumber value=build.legoItemNumber class='form-control')
+        tr 
+          th.th-body Themes 
+          td 
+            input(type=text name=theme class='form-control')
+        tr  
+          th.th-body Image Link
+          td
+            input(type=text name=imageLink value=build.imageLink class='form-control') 
+    div(class='form-end')
+      a(href=`/builds/${build.id}` class='button warning') Cancel
+      button(type='submit' class='button') Submit
+
+//- need to add buildId to action
