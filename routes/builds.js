@@ -52,7 +52,8 @@ router.get('/', asyncHandler(async (req, res) => {
 
   res.render('builds-browse', { 
     title: 'Builds',
-    builds 
+    builds,
+    auth: res.locals.authenticated 
   });
 }));
 
@@ -111,7 +112,7 @@ router.post('/', requireAuth, csrfProtection, buildValidators, asyncHandler(asyn
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   const buildId = parseInt(req.params.id);
   const build = await db.Build.findByPk(buildId);
-  res.render('build-detail', { title: build.name, build });
+  res.render('build-detail', { title: build.name, build});
 }));
 
 module.exports = router;

@@ -5,6 +5,10 @@ include utils.pug
 block content
   .build-grid 
     each build in builds 
-      a(href=`/builds/${build.id}`)
-        div(id=`grid-container-${build.id}`).grid-container 
+      div(id=`grid-container-${build.id}`).grid-container 
+        a(href=`/builds/${build.id}`)
           img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
+        div.grid-details
+          if auth 
+            button(class='button add' id=`add-build-${build.id}`) Add to a Shelf
+          p.grid-rating Average Rating:  
