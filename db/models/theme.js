@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'themeId'
     }
     Theme.belongsToMany(models.Build, columnMapping);
+
+    Theme.hasMany(models.BuildAndTheme, { foreignKey: 'themeId', onDelete: 'CASCADE', hooks: true });
   };
   return Theme;
 };
