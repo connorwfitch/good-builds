@@ -12,7 +12,10 @@ html
           a(class='nav-page nav-offset' href='/') Home
           a(class='nav-page nav-offset' href='/builds') Browse
           a(class='nav-page nav-offset' href='/builds/new') Create A Build
-          a(class='nav-page nav-offset' href='/') My Profile
+          if locals.authenticated
+            a(class='nav-page nav-offset' href=`/users/${userId}`) My Profile
+          else
+            a(class='nav-page nav-offset' href='/login') My Profile
       if locals.authenticated
         .nav-bar-text
           h3#welcome Welcome, #{user.firstName}!
