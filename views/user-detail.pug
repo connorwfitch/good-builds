@@ -3,9 +3,36 @@ extends layout
 include utils.pug
 
 block content
-  img(src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png", alt="Default user image").user-detail-image
+  img(src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png", alt="Default user image").detail-image
   if locals.user.id === userDetail.id 
-    a(href=`/users/${userDetail.id}/edit`).button Edit My Profile
-    a(href=`/users/${userDetail.id}/delete`).button.warning Delete My Profile
-  each build in userDetail.Builds
-    p test
+    .side-by-side
+      a(href=`/users/${userDetail.id}/edit`).button Edit My Profile
+      a(href=`/users/${userDetail.id}/delete`).button.warning Delete My Profile
+  .subsection
+    h2 #{userDetail.firstName}'s Builds
+    if userDetail.Builds.length
+      .build-grid 
+        each build in userDetail.Builds
+          div(id=`grid-container-${build.id}`).grid-container 
+            a(href=`/builds/${build.id}`)
+              img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
+            .side-by-side
+              if locals.user.id === userDetail.id
+                a(href="").button Edit Build
+                a(href="").button.warning Delete Build
+    else 
+      if locals.user.id === userDetail.id
+        a(href="/builds/new").button Add a Build!
+      else
+        h4 It seems #{userDetail.firstName} has no builds at the moment
+  .subsection
+    .side-by-side
+      h2 #{userDetail.firstName}'s Display Shelves
+      if locals.user.id === userDetail.id
+        a(href="/displayShelves/new").button Add a Display Shelf!
+    if userDetail.DisplayShelves.length
+      each displayShelf in userDetail.DisplayShelves 
+        p foo
+    else 
+      if locals.user.id !== userDetail.id
+        h4 It seems #{userDetail.firstName} has no display shelves at the moment
