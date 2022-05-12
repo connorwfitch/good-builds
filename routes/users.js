@@ -54,7 +54,7 @@ router.get('/:id(\\d+)', asyncHandler(async(req, res) => {
 }));
 
 // GET user edit page
-router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
+router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, (req, res) => {
   const userId = parseInt(req.params.id, 10);
   // checking to make sure the editor is the user themselves
   if(userId !== res.locals.user.id) {
@@ -69,7 +69,7 @@ router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async(re
       csrfToken: req.csrfToken(),
     });
   }
-}));
+});
 
 // POST user (for edits)
 router.post('/:id(\\d+)', csrfProtection, userValidators, asyncHandler(async (req, res) => {
@@ -98,5 +98,30 @@ router.post('/:id(\\d+)', csrfProtection, userValidators, asyncHandler(async (re
   }
 }));
 
+// GET user delete
+router.get('/:id(\\d+)/delete', requireAuth, csrfProtection, (req, res) => {
+  const userId = parseInt(req.params.id, 10);
+  // checking to make sure the editor is the user themselves
+  if (userId !== res.locals.user.id) {
+    // if not the user, add an error message and redirect them to log in
+    // ideally want to pass this error in somehow
+    // errors = ['Must be logged in as the user to delete the profile'];
+    return res.redirect('/login');
+  } else {
+    res.render('user-delete', {
+      title: "Warning: Delete User Profile",
+      user: res.locals.user,
+      csrfToken: req.csrfToken(),
+    });
+  }
+});
+
+router.post('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+  const userId = parseInt(req.params.id, 10);
+  const user = await db.User.findByPk(userId);
+  logoutUser(req, res);
+  await user.destroy();
+  req.session.save(res.redirect('/'));
+}));
 
 module.exports = router;
