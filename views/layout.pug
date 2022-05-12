@@ -13,7 +13,7 @@ html
           a(class='nav-page nav-offset' href='/builds') Browse
           a(class='nav-page nav-offset' href='/builds/new') Create A Build
           if locals.authenticated
-            a(class='nav-page nav-offset' href=`/users/${userId}`) My Profile
+            a(class='nav-page nav-offset' href=`/users/${locals.user.id}`) My Profile
           else
             a(class='nav-page nav-offset' href='/login') My Profile
       if locals.authenticated

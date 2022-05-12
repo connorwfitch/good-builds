@@ -50,15 +50,9 @@ const buildValidators = [
 router.get('/', asyncHandler(async (req, res) => {
   const builds = await db.Build.findAll();
 
-  let userId;
-  if (req.session.auth) {
-    userId = req.session.auth.userId;
-  }
-
   res.render('builds-browse', { 
     title: 'Builds',
     builds,
-    userId
   });
 }));
 
@@ -66,12 +60,9 @@ router.get('/', asyncHandler(async (req, res) => {
 router.get('/new', requireAuth, csrfProtection, (req, res) => {
   const build = db.Build.build();
 
-  const { userId } = req.session.auth;
-
   res.render('new-build', {
     title: 'Create New Build',
     build,
-    userId,
     csrfToken: req.csrfToken(),
   });
 });
@@ -112,7 +103,6 @@ router.post('/', requireAuth, csrfProtection, buildValidators, asyncHandler(asyn
       title: 'Create New Build',
       build,
       errors,
-      userId,
       csrfToken: req.csrfToken(),
     });
   }
@@ -123,14 +113,9 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   const buildId = parseInt(req.params.id);
   const build = await db.Build.findByPk(buildId);
 
-  if (req.session.auth) {
-    const { userId } = req.session.auth;
-  }
-
   res.render('build-detail', { 
     title: build.name,
     build,
-    userId
   });
 }));
 
