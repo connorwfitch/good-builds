@@ -42,9 +42,14 @@ router.get('/:id(\\d+)', requireAuth, asyncHandler(async(req, res) => {
 
   // need to call this something other than user otherwise we get into issues with overwriting res.locals.user
   const userDetail = await db.User.findByPk(userId, {
-    include: {
-      model: db.Build
-    }
+    include: [
+      {
+        model: db.Build
+      },
+      {
+        model: db.DisplayShelf
+      }
+    ]
   });
 
   res.render('user-detail', {
