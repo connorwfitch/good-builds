@@ -1,6 +1,6 @@
 const express = require('express');
 const req = require('express/lib/request');
-const { db } = require('../db/models');
+const db = require('../db/models');
 const { asyncHandler, bcrypt } = require('./utils');
 const router = express.Router();
 
@@ -17,12 +17,7 @@ router.get('/:id(\\d+)', asyncHandler(async(req, res) => {
     //include: DisplayShelf                     //we'll include Builds too
  // })
   console.log("TEST2", user)
-  res.render('user-page', {
-    user.firstName,
-    user.lastName
-    // title,
-    // subtitle
-  });
+  res.render('user-detail', { user });
 }));
 
 module.exports = router;
