@@ -2,11 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const reviewButton = document.querySelector('.review-submit');
   reviewButton.addEventListener('click', postReview);
 
-  // const editButtons = document.querySelectorAll('.review-edit');
-  // editButtons.forEach(button => {
-  //   button.addEventListener('click', openEdit);
-  // });
-
   const deleteButtons = document.querySelectorAll('.review-delete');
   deleteButtons.forEach(button => {
     button.addEventListener('click', deleteReview);
@@ -54,13 +49,14 @@ async function postReview(e) {
     const sideBySide = document.createElement('div');
     sideBySide.classList.add('side-by-side');
 
-    const editButton = document.createElement('button');
+    const editButton = document.createElement('a');
     const deleteButton = document.createElement('button');
     editButton.classList.add('button');
     editButton.id = `review-edit-${data.review.id}`;
     deleteButton.classList.add('button', 'warning');
     deleteButton.id = `review-delete-${data.review.id}`;
 
+    editButton.href = `/reviews/edit/${data.review.id}`;
     editButton.innerText = 'Edit Review';
     deleteButton.innerText = 'Delete Review';
 

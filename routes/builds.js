@@ -63,7 +63,7 @@ const editValidators = [
       }
       return db.Build.findOne({ where: { legoItemNumber: value } })
         .then((build) => {
-          if (build.id === req.params.id) {
+          if (build.id !== req.params.id) {
             return Promise.reject('The provided Lego Item Number is already in use by another Build');
           } else {
             return new Promise((resolve, reject) => {

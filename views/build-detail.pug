@@ -36,7 +36,13 @@ block content
         +field('Title', 'title')
         div(class='form-group')
           label(for='rating') Rating (0-5)
-          input(type='number' id='rating' name='rating' value=5 min=0 max=5 class='form-control')
+          select(name='rating' id='rating').form-control
+            option(value=5) 5  
+            option(value=4) 4
+            option(value=3) 3
+            option(value=2) 2
+            option(value=1) 1
+            option(value=0) 0
         +field('Content', 'content', '', 'textarea')
         div(class='form-end')
             button(type='reset' class='button warning') Cancel
@@ -50,5 +56,5 @@ block content
           if locals.authenticated 
             if review.userId === locals.user.id
               .side-by-side 
-                button(id=`review-edit-${review.id}`).button.review-edit Edit Review
+                a(href=`/reviews/edit/${review.id}` id=`review-edit-${review.id}`).button.review-edit Edit Review
                 button(id=`review-edit-${review.id}`).button.warning.review-delete Delete Review
