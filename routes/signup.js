@@ -79,6 +79,7 @@ router.post('/', csrfProtection, userValidators, asyncHandler(async(req, res) =>
     const {
         firstName,
         lastName,
+        imageLink,
         email,
         password
     } = req.body;
@@ -86,6 +87,7 @@ router.post('/', csrfProtection, userValidators, asyncHandler(async(req, res) =>
     const user = db.User.build({
         firstName,
         lastName,
+        imageLink,
         email
     });
 
