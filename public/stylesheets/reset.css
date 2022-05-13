@@ -45,6 +45,7 @@ body {
   align-items: center;
   gap: 2rem;
   padding-bottom: 3rem;
+  position: relative;
 }
 
 .subsection {
@@ -109,7 +110,7 @@ body {
 }
 
 .form {
-  width: 30%;
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -278,4 +279,33 @@ td {
   gap: 1em;
   padding: 10px;
   align-items: center;
+}
+
+#pop-up {
+  width: 40%;
+  border-radius: 15px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
+  padding: 10px;
+}
+
+.pop-up {
+  z-index: 500;
+  position: absolute;
+  background-color: white;
+}
+
+.form-pop-up {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.centered {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
 }

@@ -84,6 +84,19 @@ const editValidators = [
 router.get('/', asyncHandler(async (req, res) => {
   const builds = await db.Build.findAll();
 
+  if(res.locals.user.id) {
+    const user = await db.User.findByPk(res.locals.user.id, {
+      include: {
+        model: db.DisplayShelf,
+      }
+    });
+    return res.render('builds-browse', {
+      title: 'Builds',
+      user,
+      builds,
+    });
+  }
+
   res.render('builds-browse', { 
     title: 'Builds',
     builds,
