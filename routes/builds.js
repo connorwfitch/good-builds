@@ -111,11 +111,26 @@ router.post('/', requireAuth, csrfProtection, buildValidators, asyncHandler(asyn
 // GET build by id
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   const buildId = parseInt(req.params.id);
-  const build = await db.Build.findByPk(buildId);
+  const build = await db.Build.findByPk(buildId, {
+    include: [
+      {
+        model: db.Theme
+      }
+    ]
+  });
+
+  let themeString = build.Themes.reduce((str, theme) => {
+    return `${str}, ${theme.name}`;
+  }, '');
+
+  if(themeString) {
+    themeString = themeString.slice(1);
+  }
 
   res.render('build-detail', { 
     title: build.name,
     build,
+    themeString
   });
 }));
 
