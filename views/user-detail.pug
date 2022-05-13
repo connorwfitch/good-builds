@@ -36,6 +36,10 @@ block content
         a(href="/displayShelves/new").button Add a Display Shelf!
     if userDetail.DisplayShelves.length
       each displayShelf in userDetail.DisplayShelves 
+        //- .shelf-grid 
+        //- each build in buildsInShelves.
+        //-   div(id=`grid-container-${build.id}`).grid-container 
+        //-     img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
         p foo
     else 
       if locals.user.id !== userDetail.id

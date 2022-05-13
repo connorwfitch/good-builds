@@ -52,6 +52,18 @@ router.get('/:id(\\d+)', requireAuth, asyncHandler(async(req, res) => {
     ]
   });
 
+  const buildsInShelves = await db.BuildAndShelf.findAll({
+    include: [db.Build, {
+      model: db.DisplayShelf,
+      include: {
+        model: db.User,
+      },
+      where: {
+        userId: userId
+      }}
+    ],
+  });
+  console.log(buildsInShelves[0].Build.imageLink, "==================")
   res.render('user-detail', {
     title: `${userDetail.firstName} ${userDetail.lastName}`,
     userDetail
