@@ -60,7 +60,7 @@ app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/builds', buildsRouter);
-app.use('/displayShelves', displayShelvesRouter);
+app.use('/displayshelves', displayShelvesRouter);
 app.use('/api/reviews', reviewsApiRouter);
 app.use('/reviews', reviewsRouter);
 app.use('/api/buildandshelves', buildandshelvesApiRouter);

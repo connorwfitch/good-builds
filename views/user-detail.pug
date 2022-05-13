@@ -33,9 +33,14 @@ block content
     .side-by-side
       h2 #{userDetail.firstName}'s Display Shelves
       if locals.user.id === userDetail.id
-        a(href="/displayShelves/new").button Add a Display Shelf!
+        a(href="/displayshelves/new").button Add a Display Shelf!
     if userDetail.DisplayShelves.length
       each displayShelf in userDetail.DisplayShelves 
+        .side-by-side 
+          h2= displayShelf.title 
+          a(href=`/displayshelves/${displayShelf.id}/edit`).button Edit Build
+          a(href=`/displayshelves/${displayShelf.id}/delete`).button.warning Delete Build
+        p= displayShelf.subtitle
         .shelf-flex 
           each build in displayShelf.Builds
             .grid-container 
