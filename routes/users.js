@@ -49,7 +49,13 @@ router.get('/:id(\\d+)', requireAuth, asyncHandler(async(req, res) => {
       {
         model: db.DisplayShelf,
         include: {
-          model: db.Build
+          model: db.Build,
+          include: {
+            model: db.BuildAndShelf,
+            // where: {
+            //   shelfId: DisplayShelf.id
+            // }
+          }
         }
       }
     ]
