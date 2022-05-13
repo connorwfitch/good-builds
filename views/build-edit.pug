@@ -18,15 +18,15 @@ block content
             input(type='hidden' name='_csrf' value=csrfToken)          
             input(class='form-control' type="text" name="name" value=build.name )
         tr 
-          th.th-body Piece Count
+          th.th-body Piece Count (Optional)
           td 
             input(type="number" name="pieceCount" value=build.pieceCount class='form-control')
         tr 
-          th.th-body Lego Item Number
+          th.th-body Lego Item Number (Optional)
           td
             input(type="number" name="legoItemNumber" value=build.legoItemNumber class='form-control')
         tr 
-          th.th-body Themes 
+          th.th-body Themes (Optional)
           td 
             input(type="text" name="theme" class='form-control')
         tr  
