@@ -39,3 +39,7 @@ block content
             a(class='button') Add Review
     h2 Reviews
     .reviews-container
+      each review in build.Reviews
+        .review
+          h3 #{review.title} (#{review.rating}/5)
+          p= review.content

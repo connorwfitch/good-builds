@@ -30,7 +30,7 @@ const buildValidators = [
         return new Promise((resolve, reject) => {
           setTimeout(() => {
             resolve();
-          }, 1);
+          }, 0);
         })
       }
       return db.Build.findOne({ where: { legoItemNumber: value } })
@@ -115,6 +115,12 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     include: [
       {
         model: db.Theme
+      },
+      {
+        model: db.Review,
+        // include: {
+        //   model: db.User
+        // }
       }
     ]
   });
