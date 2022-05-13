@@ -47,7 +47,8 @@ block content
         div(id=`review-${review.id}`).review
           h3 #{review.title} (#{review.rating}/5)
           p= review.content
-          if review.userId === locals.user.id
-            .side-by-side 
-              button(id=`review-edit-${review.id}`).button.review-edit Edit Review
-              button(id=`review-edit-${review.id}`).button.warning.review-delete Delete Review
+          if locals.authenticated 
+            if review.userId === locals.user.id
+              .side-by-side 
+                button(id=`review-edit-${review.id}`).button.review-edit Edit Review
+                button(id=`review-edit-${review.id}`).button.warning.review-delete Delete Review
