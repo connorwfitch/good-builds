@@ -171,6 +171,11 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
       }
     ]
   });
+  let sum = 0;
+  for(let i = 0; i < build.Reviews.length; i++){
+    sum += build.Reviews[i].rating;
+  };
+  let averageRating = sum/build.Reviews.length;
 
   let themeString = build.Themes.reduce((str, theme) => {
     return `${str}, ${theme.name}`;
@@ -183,7 +188,8 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   res.render('build-detail', { 
     title: build.name,
     build,
-    themeString
+    themeString,
+    averageRating
   });
 }));
 
