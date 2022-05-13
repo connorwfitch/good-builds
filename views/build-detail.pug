@@ -56,5 +56,5 @@ block content
           if locals.authenticated 
             if review.userId === locals.user.id
               .side-by-side 
-                a(href=`/reviews/edit/${review.id}` id=`review-edit-${review.id}`).button.review-edit Edit Review
+                a(href=`/reviews/${review.id}/edit` id=`review-edit-${review.id}`).button.review-edit Edit Review
                 button(id=`review-edit-${review.id}`).button.warning.review-delete Delete Review

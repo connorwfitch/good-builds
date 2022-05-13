@@ -191,7 +191,6 @@ router.post('/:id(\\d+)',csrfProtection, editValidators, asyncHandler(async (req
     name,
     pieceCount,
     legoItemNumber,
-    theme,
     imageLink
   } = req.body;
   const buildId = parseInt(req.params.id);
@@ -200,9 +199,8 @@ router.post('/:id(\\d+)',csrfProtection, editValidators, asyncHandler(async (req
   
   if (validatorErrors.isEmpty()) {
     build.name = name;
-    build.pieceCount = pieceCount;
-    build.legoItemNumber = legoItemNumber;
-  
+    if(pieceCount) build.pieceCount = pieceCount;
+    if(legoItemNumber) build.legoItemNumber = legoItemNumber;
     build.imageLink = imageLink;
     await build.save();
     req.session.save(() => res.redirect(`/builds/${buildId}`))

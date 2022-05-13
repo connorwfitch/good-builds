@@ -56,7 +56,7 @@ async function postReview(e) {
     deleteButton.classList.add('button', 'warning');
     deleteButton.id = `review-delete-${data.review.id}`;
 
-    editButton.href = `/reviews/edit/${data.review.id}`;
+    editButton.href = `/reviews/${data.review.id}/edit`;
     editButton.innerText = 'Edit Review';
     deleteButton.innerText = 'Delete Review';
 
