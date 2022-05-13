@@ -17,7 +17,7 @@ block content
       if locals.user.id === userDetail.id
         a(href="/builds/new").button Add a Build!
     if userDetail.Builds.length
-      .build-grid 
+      .shelf-flex 
         each build in userDetail.Builds
           div(id=`grid-container-${build.id}`).grid-container 
             a(href=`/builds/${build.id}`)
