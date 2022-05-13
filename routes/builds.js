@@ -131,7 +131,7 @@ router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async (r
 }));
 
 // POST Build (for edits)
-router.post('/:id(\\d+)', csrfProtection, buildValidators, asyncHandler(async (req, res) => {
+router.post('/:id(\\d+)',csrfProtection, buildValidators, asyncHandler(async (req, res) => {
   const {
     name,
     pieceCount,
@@ -150,7 +150,7 @@ router.post('/:id(\\d+)', csrfProtection, buildValidators, asyncHandler(async (r
   
     build.imageLink = imageLink;
     await build.save();
-    req.session.save(() => res.redirect(`/builds/${build}`))
+    req.session.save(() => res.redirect(`/builds/${buildId}`))
   } else {
     const errors = validatorErrors.array().map((error) => error.msg);
     res.render(`build-edit`, {
