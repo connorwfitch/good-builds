@@ -14,6 +14,7 @@ block content
   .shelf-flex 
     each build in displayShelf.Builds
       .grid-container 
-        img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
+        a(href=`/builds/${build.id}`)
+          img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
         .grid-details
           p= `Build Status: ${build.BuildAndShelf.buildStatus}`
