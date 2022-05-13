@@ -140,4 +140,49 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   });
 }));
 
+// GET Build edit page
+router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+  const buildId = parseInt(req.params.id);
+  const build = await db.Build.findByPk(buildId);
+  res.render('build-edit',{
+    title: "Edit Build",
+    build,
+    csrfToken: req.csrfToken(),
+  });
+}));
+
+// POST Build (for edits)
+router.post('/:id(\\d+)',csrfProtection, buildValidators, asyncHandler(async (req, res) => {
+  const {
+    name,
+    pieceCount,
+    legoItemNumber,
+    theme,
+    imageLink
+  } = req.body;
+  const buildId = parseInt(req.params.id);
+  const build = await db.Build.findByPk(buildId);
+  const validatorErrors = validationResult(req);
+  console.log('test', name, pieceCount, legoItemNumber,imageLink)
+  if (validatorErrors.isEmpty()) {
+    build.name = name;
+    build.pieceCount = pieceCount;
+    build.legoItemNumber = legoItemNumber;
+  
+    build.imageLink = imageLink;
+    await build.save();
+    req.session.save(() => res.redirect(`/builds/${buildId}`))
+  } else {
+    const errors = validatorErrors.array().map((error) => error.msg);
+    res.render(`build-edit`, {
+      title: build.name,
+      build,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
+  }
+
+}));
+
+
 module.exports = router;
