@@ -3,9 +3,10 @@ extends layout
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/reset.css")
-  //- add page specific js
-  script(src="/javascripts/index.js" type="module" defer)
 
 block content
   h2 Welcome to GoodBuilds!
-
+  a(href='/builds')
+    h2.page-reference Explore the latest Builds!
+  a(href='/displayShelves/new')
+    h2.page-reference Inspiration for your own Display Shelf?

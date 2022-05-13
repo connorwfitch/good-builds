@@ -8,8 +8,8 @@ block content
         input(type='hidden' name='_csrf' value=csrfToken)
         +field('Name', 'name', build.name)
         +field('Image Link', 'imageLink', build.imageLink)
-        +field('Lego Item Number', 'legoItemNumber', build.legoItemNumber, 'number')
-        +field('Piece Count', 'pieceCount', build.pieceCount, 'number')
+        +field('Lego Item Number (Optional)', 'legoItemNumber', build.legoItemNumber, 'number')
+        +field('Piece Count (Optional)', 'pieceCount', build.pieceCount, 'number')
         div(class='form-end')
             a(href='/' class='button warning') Cancel
             button(type='submit' class='button') Create Build
