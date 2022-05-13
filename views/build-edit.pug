@@ -7,10 +7,10 @@ block content
   +validationErrorSummary(errors)   
   form(class='form', action=`/builds/${build.id}`, method="post")
     input(type='hidden' name='_csrf' value=csrfToken)
-      +field('Name', 'name', build.name)
-      +field('Image Link', 'imageLink', build.imageLink)
-      +field('Lego Item Number (Optional)', 'legoItemNumber', build.legoItemNumber, 'number')
-      +field('Piece Count (Optional)', 'pieceCount', build.pieceCount, 'number')
+    +field('Name', 'name', build.name)
+    +field('Image Link', 'imageLink', build.imageLink)
+    +field('Lego Item Number (Optional)', 'legoItemNumber', build.legoItemNumber, 'number')
+    +field('Piece Count (Optional)', 'pieceCount', build.pieceCount, 'number')
     div(class='form-end')
       a(href=`/builds/${build.id}` class='button warning') Cancel
       button(type='submit' class='button') Edit Build
