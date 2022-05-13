@@ -8,6 +8,10 @@ include utils.pug
 
 block content
   img(src=build.imageLink, alt=`Image of ${build.name}`).detail-image
+  if locals.user.id === build.userId 
+    .side-by-side 
+      a(href=`/builds/${build.id}/edit`).button Edit Build
+      a(href=`/builds/${build.id}/delete`).button.warning Delete Build
   table.build-info
     thead 
       tr 
