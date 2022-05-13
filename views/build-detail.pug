@@ -1,5 +1,9 @@
 extends layout
 
+append head
+  //- add page specific js
+  script(src="/javascripts/reviewScript.js" type="module" defer)
+
 include utils.pug
 
 block content
@@ -36,7 +40,7 @@ block content
         +field('Content', 'content', '', 'textarea')
         div(class='form-end')
             button(type='reset' class='button warning') Cancel
-            a(class='button') Add Review
+            a(class='button review-submit' id=`review-${locals.user.id}-${build.id}`) Add Review
     h2 Reviews
     .reviews-container
       each review in build.Reviews

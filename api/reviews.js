@@ -38,8 +38,16 @@ router.post('/', reviewValidators, handleValidationErrors, asyncHandler( async (
   const {
     title,
     content,
-    rating
+    rating,
+    buildId,
+    userId
   } = req.body
-  const review = await Review.create({ title, content, rating, buildId:req.build.id, userId: req.user.id });
-  res.json(review)
-}))
+  const review = await db.Review.create({ title, content, rating, buildId, userId });
+  res.json({
+    message: 'Success',
+    review
+  });
+}));
+
+
+module.exports = router;
