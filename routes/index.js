@@ -16,9 +16,19 @@ router.get('/', asyncHandler( async function(req, res, next) {
     order: [['createdAt', 'DESC']],
   })
 
+  const oldestShelf = await db.DisplayShelf.findOne({
+    include: {
+      model: db.Build,
+      include: {
+        model: db.BuildAndShelf,
+      }
+    }
+  })
+
   res.render('index', { 
     title: 'GoodBuilds',
-    newestBuilds
+    newestBuilds,
+    oldestShelf
   });
 }));
 
