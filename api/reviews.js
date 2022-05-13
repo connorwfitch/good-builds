@@ -49,5 +49,15 @@ router.post('/', reviewValidators, handleValidationErrors, asyncHandler( async (
   });
 }));
 
+router.delete('/:id(\\d+)', asyncHandler(async (req, res) => {
+  const review = await db.Review.findByPk(req.params.id)
+  if (review) {
+    await review.destroy()
+    res.json({ message: 'Success' })
+  } else {
+    res.json({ message: 'Fail' })
+  }
+}))
+
 
 module.exports = router;
