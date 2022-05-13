@@ -80,7 +80,8 @@ router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, (req, res) => {
 router.post('/:id(\\d+)', requireAuth, csrfProtection, userValidators, asyncHandler(async (req, res) => {
   const {
     firstName,
-    lastName
+    lastName,
+    imageLink
   } = req.body;
 
   const user = res.locals.user;
@@ -90,6 +91,7 @@ router.post('/:id(\\d+)', requireAuth, csrfProtection, userValidators, asyncHand
   if (validatorErrors.isEmpty()) {
     user.firstName = firstName;
     user.lastName = lastName;
+    user.imageLink = imageLink;
     await user.save();
     req.session.save(() => res.redirect(`/users/${user.id}`))
   } else {

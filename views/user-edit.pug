@@ -8,6 +8,7 @@ block content
     input(type='hidden' name='_csrf' value=csrfToken)
     +field('First Name', 'firstName', user.firstName)
     +field('Last Name', 'lastName', user.lastName)
+    +field('Profile Image Link', 'imageLink', user.imageLink)
     div(class='form-end')
       a(href=`/users/${user.id}` class='button warning') Cancel
-      button(type='submit' class='button') Edit Profile
+      button(type='submit' class='button') Submit 

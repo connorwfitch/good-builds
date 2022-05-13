@@ -30,7 +30,7 @@ const buildValidators = [
         return new Promise((resolve, reject) => {
           setTimeout(() => {
             resolve();
-          }, 1);
+          }, 0);
         })
       }
       return db.Build.findOne({ where: { legoItemNumber: value } })
@@ -111,12 +111,78 @@ router.post('/', requireAuth, csrfProtection, buildValidators, asyncHandler(asyn
 // GET build by id
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
   const buildId = parseInt(req.params.id);
-  const build = await db.Build.findByPk(buildId);
+  const build = await db.Build.findByPk(buildId, {
+    include: [
+      {
+        model: db.Theme
+      },
+      {
+        model: db.Review,
+        // include: {
+        //   model: db.User
+        // }
+      }
+    ]
+  });
+
+  let themeString = build.Themes.reduce((str, theme) => {
+    return `${str}, ${theme.name}`;
+  }, '');
+
+  if(themeString) {
+    themeString = themeString.slice(1);
+  }
 
   res.render('build-detail', { 
     title: build.name,
     build,
+    themeString
   });
 }));
+
+// GET Build edit page
+router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+  const buildId = parseInt(req.params.id);
+  const build = await db.Build.findByPk(buildId);
+  res.render('build-edit',{
+    title: "Edit Build",
+    build,
+    csrfToken: req.csrfToken(),
+  });
+}));
+
+// POST Build (for edits)
+router.post('/:id(\\d+)',csrfProtection, buildValidators, asyncHandler(async (req, res) => {
+  const {
+    name,
+    pieceCount,
+    legoItemNumber,
+    theme,
+    imageLink
+  } = req.body;
+  const buildId = parseInt(req.params.id);
+  const build = await db.Build.findByPk(buildId);
+  const validatorErrors = validationResult(req);
+  console.log('test', name, pieceCount, legoItemNumber,imageLink)
+  if (validatorErrors.isEmpty()) {
+    build.name = name;
+    build.pieceCount = pieceCount;
+    build.legoItemNumber = legoItemNumber;
+  
+    build.imageLink = imageLink;
+    await build.save();
+    req.session.save(() => res.redirect(`/builds/${buildId}`))
+  } else {
+    const errors = validatorErrors.array().map((error) => error.msg);
+    res.render(`build-edit`, {
+      title: build.name,
+      build,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
+  }
+
+}));
+
 
 module.exports = router;

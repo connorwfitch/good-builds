@@ -8,6 +8,7 @@ block content
         input(type='hidden' name='_csrf' value=csrfToken)
         +field('First Name', 'firstName', user.firstName)
         +field('Last Name', 'lastName', user.lastName)
+        +field('Profile Image Link', 'imageLink', user.imageLink)
         +field('Email Address', 'email', user.email)
         +field('Password', 'password', '', 'password', 'At least 6 characters')
         +field('Confirm Password', 'confirmPassword', '', 'password')
