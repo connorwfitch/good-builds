@@ -36,6 +36,18 @@ async function submitBuildToShelf(e) {
   const buildId = e.target.id.split('-')[3];
 
   // from the select we get our shelfId and buildStatus
+  const shelfId = document.querySelector('#shelfId').value;
+  const buildStatus = document.querySelector('#buildStatus').value;
+
+  const res = await fetch(`/api/buildandshelves`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      buildId,
+      shelfId,
+      buildStatus
+    })
+  })
 
   // RESET
   const popUp = document.querySelector('#pop-up');
@@ -60,7 +72,7 @@ async function submitBuildToShelf(e) {
 function cancelBuildAdd(e) {
   const buildId = e.target.id.split('-')[3];
 
-  
+
   // RESET
   const popUp = document.querySelector('#pop-up');
   popUp.classList.toggle('hidden');
