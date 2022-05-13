@@ -24,8 +24,8 @@ block content
               img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
             .side-by-side
               if locals.user.id === userDetail.id
-                a(href="").button Edit Build
-                a(href="").button.warning Delete Build
+                a(href=`/builds/${build.id}/edit`).button Edit Build
+                a(href=`/builds/${build.id}/delete`).button.warning Delete Build
     else 
       if locals.user.id !== userDetail.id
         h4 It seems #{userDetail.firstName} has no builds at the moment

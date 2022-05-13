@@ -42,6 +42,40 @@ const buildValidators = [
     }),
 ];
 
+const editValidators = [
+  check('name')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Name')
+    .isLength({ max: 75 })
+    .withMessage('Name must not be more than 75 characters long'),
+  check('imageLink')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Image Link'),
+  check('legoItemNumber')
+    .custom((value, { req }) => {
+      // automatic promise resolve if there is no legoitem number
+      if (!value) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve();
+          }, 0);
+        });
+      }
+      return db.Build.findOne({ where: { legoItemNumber: value } })
+        .then((build) => {
+          if (build.id === req.params.id) {
+            return Promise.reject('The provided Lego Item Number is already in use by another Build');
+          } else {
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve();
+              }, 0);
+            });
+          }
+        });
+    }),
+];
+
 /*
 --------------ROUTES--------------
 */
@@ -152,7 +186,7 @@ router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async (r
 }));
 
 // POST Build (for edits)
-router.post('/:id(\\d+)',csrfProtection, buildValidators, asyncHandler(async (req, res) => {
+router.post('/:id(\\d+)',csrfProtection, editValidators, asyncHandler(async (req, res) => {
   const {
     name,
     pieceCount,
@@ -163,7 +197,7 @@ router.post('/:id(\\d+)',csrfProtection, buildValidators, asyncHandler(async (re
   const buildId = parseInt(req.params.id);
   const build = await db.Build.findByPk(buildId);
   const validatorErrors = validationResult(req);
-  console.log('test', name, pieceCount, legoItemNumber,imageLink)
+  
   if (validatorErrors.isEmpty()) {
     build.name = name;
     build.pieceCount = pieceCount;
@@ -175,7 +209,7 @@ router.post('/:id(\\d+)',csrfProtection, buildValidators, asyncHandler(async (re
   } else {
     const errors = validatorErrors.array().map((error) => error.msg);
     res.render(`build-edit`, {
-      title: build.name,
+      title: "Edit Build",
       build,
       errors,
       csrfToken: req.csrfToken(),
@@ -183,6 +217,28 @@ router.post('/:id(\\d+)',csrfProtection, buildValidators, asyncHandler(async (re
   }
 
 }));
+
+router.get('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+  const buildId = parseInt(req.params.id, 10);
+  const build = await db.Build.findByPk(buildId);
+  if (build.userId !== res.locals.user.id) {
+    return res.redirect('/login');
+  }
+  res.render('build-delete', {
+    title: "Warning: Delete Build",
+    user: res.locals.user,
+    build,
+    csrfToken: req.csrfToken(),
+  });
+}));
+
+router.post('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+  const buildId = parseInt(req.params.id, 10);
+  const build = await db.Build.findByPk(buildId);
+  await build.destroy();
+  req.session.save(res.redirect(`/users/${res.locals.user.id}`));
+}));
+
 
 
 module.exports = router;
