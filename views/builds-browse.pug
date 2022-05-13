@@ -13,8 +13,11 @@ block content
         a(href=`/builds/${build.id}`)
           img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
         div.grid-details
-          if locals.authenticated 
-            button(class='button add' id=`add-build-${build.id}`) Add to a Shelf
+          if locals.authenticated
+            if user.DisplayShelves.length
+              button(class='button add' id=`add-build-${build.id}`) Add to a Shelf
+            else 
+              a(class='button add' href='/displayShelves/new') Add to a Shelf
           //- p.grid-rating Average Rating:
   if locals.authenticated
     #pop-up.hidden

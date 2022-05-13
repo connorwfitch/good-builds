@@ -37,7 +37,11 @@ async function submitBuildToShelf(e) {
 
   // from the select we get our shelfId and buildStatus
 
-  // RESET listeners
+  // RESET
+  const popUp = document.querySelector('#pop-up');
+  popUp.classList.toggle('hidden');
+  popUp.classList.toggle('pop-up');
+
   const addButtons = document.querySelectorAll('.add');
   addButtons.forEach(button => {
     button.addEventListener('click', addToShelfMenu);
@@ -54,5 +58,24 @@ async function submitBuildToShelf(e) {
 }
 
 function cancelBuildAdd(e) {
+  const buildId = e.target.id.split('-')[3];
 
+  
+  // RESET
+  const popUp = document.querySelector('#pop-up');
+  popUp.classList.toggle('hidden');
+  popUp.classList.toggle('pop-up');
+
+  const addButtons = document.querySelectorAll('.add');
+  addButtons.forEach(button => {
+    button.addEventListener('click', addToShelfMenu);
+  });
+
+  const submitButton = document.querySelector(`#pop-up-submit-${buildId}`);
+  submitButton.removeEventListener('click', submitBuildToShelf);
+  submitButton.id = 'pop-up-submit';
+
+  const cancelButton = document.querySelector(`#pop-up-cancel-${buildId}`);
+  cancelButton.removeEventListener('click', cancelBuildAdd);
+  cancelButton.id = 'pop-up-cancel';
 }
