@@ -338,3 +338,7 @@ td {
   border-bottom: 4px solid rgb(0, 140, 60);
   color: rgb(0, 140, 60);
 }
+
+p {
+  margin: 0px;
+}

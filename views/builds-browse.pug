@@ -9,16 +9,19 @@ include utils.pug
 block content
   .build-grid 
     each build in builds 
-      div(id=`grid-container-${build.id}`).grid-container 
-        a(href=`/builds/${build.id}`)
-          img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
-        div.grid-details
-          if locals.authenticated
+      if locals.authenticated
+        div(id=`grid-container-${build.id}`).grid-container 
+          a(href=`/builds/${build.id}`)
+            img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
+          div.grid-details
             if user.DisplayShelves.length
               button(class='button add' id=`add-build-${build.id}`) Add to a Shelf
             else 
               a(class='button add' href='/displayshelves/new') Add to a Shelf
-          //- p.grid-rating Average Rating:
+      else 
+        div(id=`grid-container-${build.id}`).grid-container.home 
+          a(href=`/builds/${build.id}`)
+            img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
   if locals.authenticated
     #pop-up.hidden
       h2.centered Add Build to a Display Shelf
