@@ -49,16 +49,21 @@ async function submitEditToShelf(e) {
     body: JSON.stringify({
       buildStatus
     })
-  })
+  });
 
-  // reflect the change in build status
+  const data = await res.json()
+  if (data.message === 'Success') {
+    const buildStatusP = document.querySelector(`#build-status-${buildAndShelfId}`);
+    buildStatusP.innerText = `Build Status: ${data.buildAndShelf.buildStatus}`;
+  }
+
 
   // RESET
-  reset();
+  reset(buildAndShelfId);
 
 }
 
-async function removeFromShelf() {
+async function removeFromShelf(e) {
   const buildAndShelfId = e.target.id.split('-')[3];
   const res = await fetch(`/api/buildandshelves/${buildAndShelfId}`, {
     method: 'DELETE',
@@ -67,18 +72,18 @@ async function removeFromShelf() {
   const data = await res.json()
   if (data.message === 'Success') {
     const container = document.querySelector(`#container-${buildAndShelfId}`)
-    review.remove()
+    container.remove()
   } else {
     // create elements with error message
   }
+
+  reset(buildAndShelfId);
 }
 
 function cancelBuildEdit(e) {
-  const buildId = e.target.id.split('-')[3];
-
-
+  const buildAndShelfId = e.target.id.split('-')[3];
   // RESET
-  reset();
+  reset(buildAndShelfId);
 }
 
 function reset(id) {

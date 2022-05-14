@@ -42,7 +42,12 @@ router.post('/', asyncHandler(async (req, res) => {
 
 // DELETE from api
 router.delete('/:id(\\d+)', asyncHandler(async (req, res) => {
-  const buildAndShelf = await db.BuildAndShelf.findByPk(req.params.id)
+  const buildAndShelf = await db.BuildAndShelf.findOne({
+    where: {
+      id: parseInt(req.params.id)
+    }
+  });
+  
   if (buildAndShelf) {
     await buildAndShelf.destroy()
     res.json({ message: 'Success' })
@@ -56,11 +61,18 @@ router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
   const {
     buildStatus
   } = req.body
-  const buildAndShelf = await db.BuildAndShelf.findByPk(req.params.id)
+  const buildAndShelf = await db.BuildAndShelf.findOne({
+    where: {
+      id: parseInt(req.params.id)
+    }
+  });
   if (buildAndShelf) {
     buildAndShelf.buildStatus = buildStatus;
     await buildAndShelf.save();
-    res.json({ message: 'Success' })
+    res.json({ 
+      message: 'Success', 
+      buildAndShelf
+    })
   } else {
     res.json({ message: 'Fail' })
   }

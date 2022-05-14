@@ -21,8 +21,7 @@ block content
         a(href=`/builds/${buildAndShelf.Build.id}`)
           img(src=buildAndShelf.Build.imageLink, alt=`Image of ${buildAndShelf.Build.name}`).grid-image
         .grid-details
-          p= `Build Status: ${buildAndShelf.buildStatus}`
-          p= `${buildAndShelf.id} `
+          p(id=`build-status-${buildAndShelf.id}`)= `Build Status: ${buildAndShelf.buildStatus}`
           button(class= 'button edit' id=`edit-build-shelf-${buildAndShelf.id}`) Modify or Remove
   #pop-up.hidden
     h2.centered Modify or Remove from Display Shelf

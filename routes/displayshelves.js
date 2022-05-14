@@ -100,14 +100,17 @@ router.post('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async
 // GET display shelf edit page
 router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
   const shelfId = parseInt(req.params.id, 10);
+
   const displayShelf = await db.DisplayShelf.findByPk(shelfId, {
     include: {
       model: db.BuildAndShelf,
+      attributes: ['id', 'buildStatus'],
       include: {
-        model: db.Build,
+        model: db.Build
       }
     }
   });
+
   if (displayShelf.userId !== res.locals.user.id) {
     return res.redirect('/login');
   }
@@ -126,7 +129,16 @@ router.post('/:id(\\d+)/edit', requireAuth, csrfProtection, displayShelfValidato
   } = req.body;
 
   const shelfId = parseInt(req.params.id);
-  const displayShelf = await db.DisplayShelf.findByPk(shelfId);
+  
+  const displayShelf = await db.DisplayShelf.findByPk(shelfId, {
+    include: {
+      model: db.BuildAndShelf,
+      attributes: ['id', 'buildStatus'],
+      include: {
+        model: db.Build
+      }
+    }
+  });
 
   const validatorErrors = validationResult(req);
 
