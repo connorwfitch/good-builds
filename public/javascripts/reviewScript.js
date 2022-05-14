@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const reviewButton = document.querySelector('.review-submit');
-  reviewButton.addEventListener('click', postReview);
+  if(reviewButton) reviewButton.addEventListener('click', postReview);
 
   const deleteButtons = document.querySelectorAll('.review-delete');
   deleteButtons.forEach(button => {

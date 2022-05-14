@@ -3,15 +3,17 @@ extends layout
 append head
   //- add page specific js
   script(src="/javascripts/reviewScript.js" type="module" defer)
+  script(src="/javascripts/shelfAddScript.js" type="module" defer)
 
 include utils.pug
 
 block content
   img(src=build.imageLink, alt=`Image of ${build.name}`).detail-image
-  if locals.authenticated
-    if locals.user.id === build.userId 
-      .side-by-side 
-        a(href=`/builds/${build.id}/edit`).button Edit Build
+  if locals.authenticated 
+    .side-by-side 
+      button(class='button add' id=`add-build-${build.id}`) Add to a Shelf
+      if locals.user.id === build.userId
+        a(href=`/builds/${build.id}/edit`).button.caution Edit Build
         a(href=`/builds/${build.id}/delete`).button.warning Delete Build
   table.build-info
     thead 
@@ -63,3 +65,23 @@ block content
               .side-by-side 
                 a(href=`/reviews/${review.id}/edit` id=`review-edit-${review.id}`).button.review-edit Edit Review
                 button(id=`review-edit-${review.id}`).button.warning.review-delete Delete Review
+  if locals.authenticated
+    #pop-up.hidden
+      h2.centered Add Build to a Display Shelf
+      .form-pop-up
+        //- pick the shelf from the user's shelves (SELECT)
+        div(class='form-group')
+          label(for='shelfId') Select Display Shelf
+          select(name='shelfId' id='shelfId').form-control
+            each displayShelf in user.DisplayShelves
+              option(value=displayShelf.id)= displayShelf.title
+        //- set the build status (SELECT)
+        div(class='form-group')
+          label(for='buildStatus') Select Build Status
+          select(name='buildStatus' id='buildStatus').form-control
+            option(value='Built') Built  
+            option(value='In Progress') In Progress
+            option(value='Will Build') Will Build
+        div(class='form-end')
+          button(id='pop-up-cancel' class='button warning') Cancel
+          button(id='pop-up-submit' class='button') Submit

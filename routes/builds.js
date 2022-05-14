@@ -171,6 +171,8 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
       }
     ]
   });
+
+  // review average
   let sum = 0;
   for(let i = 0; i < build.Reviews.length; i++){
     sum += build.Reviews[i].rating;
@@ -183,6 +185,21 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 
   if(themeString) {
     themeString = themeString.slice(1);
+  }
+
+  if (res.locals.user) {
+    const user = await db.User.findByPk(res.locals.user.id, {
+      include: {
+        model: db.DisplayShelf,
+      }
+    });
+    return res.render('build-detail', {
+      title: build.name,
+      build,
+      user,
+      themeString,
+      averageRating
+    });
   }
 
   res.render('build-detail', { 

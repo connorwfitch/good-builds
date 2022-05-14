@@ -85,6 +85,10 @@ body {
   background-color: rgb(200, 45, 30);
 }
 
+.button.caution {
+  background-color: rgb(0, 70, 200);
+}
+
 #branding {
   margin: 0px;
   font-size: 36px;
@@ -299,7 +303,7 @@ td {
 
 .pop-up {
   z-index: 500;
-  position: absolute;
+  position: fixed;
   background-color: white;
 }
 
@@ -337,6 +341,10 @@ td {
 .page-reference:hover {
   border-bottom: 4px solid rgb(0, 140, 60);
   color: rgb(0, 140, 60);
+}
+
+p {
+ margin: 0px;
 }
 
 #special {

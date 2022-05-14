@@ -1,10 +1,14 @@
 extends layout
 
+append head
+  //- add page specific js
+  script(src="/javascripts/shelfEditScript.js" type="module" defer)
+
 include utils.pug
 
 block content
   +validationErrorSummary(errors)
-  form(class='form', action="/displayshelves", method="post") 
+  form(class='form', action=`/displayshelves/${displayShelf.id}/edit`, method="post") 
     input(type='hidden' name='_csrf' value=csrfToken)
     +field('Title', 'title', displayShelf.title)
     +field('Subtitle', 'subtitle', displayShelf.subtitle)
@@ -12,9 +16,24 @@ block content
       a(href=`/users/${locals.user.id}` class='button warning') Cancel
       button(type='submit' class='button') Edit Display Shelf
   .shelf-flex 
-    each build in displayShelf.Builds
-      .grid-container 
-        a(href=`/builds/${build.id}`)
-          img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
+    each buildAndShelf in displayShelf.BuildAndShelves
+      div(id=`container-${buildAndShelf.id}`).grid-container
+        a(href=`/builds/${buildAndShelf.Build.id}`)
+          img(src=buildAndShelf.Build.imageLink, alt=`Image of ${buildAndShelf.Build.name}`).grid-image
         .grid-details
-          p= `Build Status: ${build.BuildAndShelf.buildStatus}`
+          p(id=`build-status-${buildAndShelf.id}`)= `Build Status: ${buildAndShelf.buildStatus}`
+          button(class= 'button edit' id=`edit-build-shelf-${buildAndShelf.id}`) Modify or Remove
+  #pop-up.hidden
+    h2.centered Modify or Remove from Display Shelf
+    .form-pop-up
+      //- set the build status (SELECT)
+      div(class='form-group')
+        label(for='buildStatus') Select Build Status
+        select(name='buildStatus' id='buildStatus').form-control
+          option(value='Built') Built  
+          option(value='In Progress') In Progress
+          option(value='Will Build') Will Build
+      div(class='form-end')
+        button(id='pop-up-cancel' class='button caution') Cancel
+        button(id='pop-up-submit' class='button') Submit
+        button(id='pop-up-remove' class='button warning') Remove
