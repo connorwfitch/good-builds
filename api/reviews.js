@@ -33,6 +33,8 @@ const reviewValidators = [
 /*
 --------------ROUTES--------------
 */
+
+// POST api
 router.post('/', reviewValidators, handleValidationErrors, asyncHandler( async (req, res) => {
   const {
     title,
@@ -48,6 +50,7 @@ router.post('/', reviewValidators, handleValidationErrors, asyncHandler( async (
   });
 }));
 
+// DELETE api
 router.delete('/:id(\\d+)', asyncHandler(async (req, res) => {
   const review = await db.Review.findByPk(req.params.id)
   if (review) {

@@ -85,6 +85,10 @@ body {
   background-color: rgb(200, 45, 30);
 }
 
+.button.caution {
+  background-color: rgb(0, 70, 200);
+}
+
 #branding {
   margin: 0px;
   font-size: 36px;
@@ -299,7 +303,7 @@ td {
 
 .pop-up {
   z-index: 500;
-  position: absolute;
+  position: fixed;
   background-color: white;
 }
 

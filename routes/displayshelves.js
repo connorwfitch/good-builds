@@ -102,9 +102,9 @@ router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async (r
   const shelfId = parseInt(req.params.id, 10);
   const displayShelf = await db.DisplayShelf.findByPk(shelfId, {
     include: {
-      model: db.Build,
+      model: db.BuildAndShelf,
       include: {
-        model: db.BuildAndShelf,
+        model: db.Build,
       }
     }
   });
@@ -116,6 +116,35 @@ router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async (r
     displayShelf,
     csrfToken: req.csrfToken(),
   });
+}));
+
+// POST display shelf edit page
+router.post('/:id(\\d+)/edit', requireAuth, csrfProtection, displayShelfValidators, asyncHandler(async (req, res) => {
+  const {
+    title,
+    subtitle
+  } = req.body;
+
+  const shelfId = parseInt(req.params.id);
+  const displayShelf = await db.DisplayShelf.findByPk(shelfId);
+
+  const validatorErrors = validationResult(req);
+
+  if (validatorErrors.isEmpty()) {
+    displayShelf.title = title;
+    displayShelf.subtitle = subtitle;
+
+    await displayShelf.save();
+    req.session.save(() => res.redirect(`/users/${displayShelf.userId}`));
+  } else {
+    const errors = validatorErrors.array().map((error) => error.msg);
+    res.render('display-shelf-edit', {
+      title: `Edit Display Shelf: ${displayShelf.title}`,
+      displayShelf,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
+  }
 }));
   
 module.exports = router;
