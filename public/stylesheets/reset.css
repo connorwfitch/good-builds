@@ -344,5 +344,17 @@ td {
 }
 
 p {
+ margin: 0px;
+}
+
+#special {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+#special > * {
   margin: 0px;
 }
