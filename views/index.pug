@@ -12,13 +12,13 @@ block content
       .grid-container.home 
         a(href=`/builds/${build.id}`)
           img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
-  a(href='/displayShelves/new').page-reference
-    h2 Inspiration for your own Display Shelf?
-  .side-by-side 
+  #special
+    a(href='/displayShelves/new').page-reference
+      h2 Inspiration for your own Display Shelf?
     h2= oldestShelf.title 
     p= oldestShelf.subtitle
-  .shelf-flex 
-    each build in oldestShelf.Builds 
-      .grid-container.home 
-        a(href=`/builds/${build.id}`)
-          img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
+    .shelf-flex 
+      each build in oldestShelf.Builds 
+        .grid-container.home 
+          a(href=`/builds/${build.id}`)
+            img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
