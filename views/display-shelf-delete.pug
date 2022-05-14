@@ -1,0 +1,10 @@
+extends layout
+
+include utils.pug
+
+block content
+  form(class='form', action=`/displayshelves/${displayShelf.id}/delete`, method="post") 
+    input(type='hidden' name='_csrf' value=csrfToken)
+    div(class='form-end')
+      a(href=`/users/${locals.user.id}` class='button') Cancel
+      button(type='submit' class='button warning') Delete Display Shelf

@@ -84,6 +84,19 @@ const editValidators = [
 router.get('/', asyncHandler(async (req, res) => {
   const builds = await db.Build.findAll();
 
+  if(res.locals.user) {
+    const user = await db.User.findByPk(res.locals.user.id, {
+      include: {
+        model: db.DisplayShelf,
+      }
+    });
+    return res.render('builds-browse', {
+      title: 'Builds',
+      user,
+      builds,
+    });
+  }
+
   res.render('builds-browse', { 
     title: 'Builds',
     builds,
@@ -222,6 +235,7 @@ router.post('/:id(\\d+)',csrfProtection, editValidators, asyncHandler(async (req
 
 }));
 
+// GET builds delete page
 router.get('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
   const buildId = parseInt(req.params.id, 10);
   const build = await db.Build.findByPk(buildId);
@@ -236,6 +250,7 @@ router.get('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async 
   });
 }));
 
+// POST builds delete page
 router.post('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
   const buildId = parseInt(req.params.id, 10);
   const build = await db.Build.findByPk(buildId);
