@@ -74,5 +74,48 @@ router.post('/', requireAuth, csrfProtection, displayShelfValidators, asyncHandl
     });
   }
 }));
+
+// GET display shelf delete page
+router.get('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+  const shelfId = parseInt(req.params.id, 10);
+  const displayShelf = await db.DisplayShelf.findByPk(shelfId);
+  if (displayShelf.userId !== res.locals.user.id) {
+    return res.redirect('/login');
+  }
+  res.render('display-shelf-delete', {
+    title: `Warning: Delete Display Shelf: ${displayShelf.title}`,
+    displayShelf,
+    csrfToken: req.csrfToken(),
+  });
+}));
+
+// POST builds delete page
+router.post('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+  const shelfId = parseInt(req.params.id, 10);
+  const displayShelf = await db.DisplayShelf.findByPk(shelfId);
+  await displayShelf.destroy();
+  req.session.save(res.redirect(`/users/${res.locals.user.id}`));
+}));
+
+// GET display shelf edit page
+router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+  const shelfId = parseInt(req.params.id, 10);
+  const displayShelf = await db.DisplayShelf.findByPk(shelfId, {
+    include: {
+      model: db.Build,
+      include: {
+        model: db.BuildAndShelf,
+      }
+    }
+  });
+  if (displayShelf.userId !== res.locals.user.id) {
+    return res.redirect('/login');
+  }
+  res.render('display-shelf-edit', {
+    title: `Edit Display Shelf: ${displayShelf.title}`,
+    displayShelf,
+    csrfToken: req.csrfToken(),
+  });
+}));
   
 module.exports = router;

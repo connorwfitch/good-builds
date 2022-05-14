@@ -3,9 +3,22 @@ extends layout
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/reset.css")
-  //- add page specific js
-  script(src="/javascripts/index.js" type="module" defer)
 
 block content
-  h2 Welcome to GoodBuilds!
-
+  a(href='/builds').page-reference
+    h2 Explore the latest Builds!
+  .shelf-flex 
+    each build in newestBuilds
+      .grid-container.home 
+        a(href=`/builds/${build.id}`)
+          img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
+  a(href='/displayShelves/new').page-reference
+    h2 Inspiration for your own Display Shelf?
+  .side-by-side 
+    h2= oldestShelf.title 
+    p= oldestShelf.subtitle
+  .shelf-flex 
+    each build in oldestShelf.Builds 
+      .grid-container.home 
+        a(href=`/builds/${build.id}`)
+          img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image

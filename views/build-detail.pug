@@ -1,9 +1,18 @@
 extends layout
 
+append head
+  //- add page specific js
+  script(src="/javascripts/reviewScript.js" type="module" defer)
+
 include utils.pug
 
 block content
   img(src=build.imageLink, alt=`Image of ${build.name}`).detail-image
+  if locals.authenticated
+    if locals.user.id === build.userId 
+      .side-by-side 
+        a(href=`/builds/${build.id}/edit`).button Edit Build
+        a(href=`/builds/${build.id}/delete`).button.warning Delete Build
   table.build-info
     thead 
       tr 
@@ -24,7 +33,7 @@ block content
         td= themeString
       tr
         th.th-body Average Rating
-        td 
+        td= averageRating
   .reviews-section 
     if locals.authenticated
       h2 Add A Review
@@ -32,14 +41,25 @@ block content
         +field('Title', 'title')
         div(class='form-group')
           label(for='rating') Rating (0-5)
-          input(type='number' id='rating' name='rating' value=5 min=0 max=5 class='form-control')
+          select(name='rating' id='rating').form-control
+            option(value=5) 5  
+            option(value=4) 4
+            option(value=3) 3
+            option(value=2) 2
+            option(value=1) 1
+            option(value=0) 0
         +field('Content', 'content', '', 'textarea')
         div(class='form-end')
             button(type='reset' class='button warning') Cancel
-            a(class='button') Add Review
+            a(class='button review-submit' id=`review-${locals.user.id}-${build.id}`) Add Review
     h2 Reviews
     .reviews-container
       each review in build.Reviews
-        .review
+        div(id=`review-${review.id}`).review
           h3 #{review.title} (#{review.rating}/5)
           p= review.content
+          if locals.authenticated 
+            if review.userId === locals.user.id
+              .side-by-side 
+                a(href=`/reviews/${review.id}/edit` id=`review-edit-${review.id}`).button.review-edit Edit Review
+                button(id=`review-edit-${review.id}`).button.warning.review-delete Delete Review

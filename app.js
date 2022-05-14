@@ -16,6 +16,9 @@ const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
 const buildsRouter = require('./routes/builds');
 const displayShelvesRouter = require('./routes/displayshelves');
+const reviewsApiRouter = require('./api/reviews');
+const reviewsRouter = require('./routes/reviews');
+const buildandshelvesApiRouter = require('./api/buildandshelves');
 const { environment, sessionSecret } = require('./config');
 const { restoreUser } = require('./auth');
 
@@ -57,8 +60,10 @@ app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/builds', buildsRouter);
-app.use('/displayShelves', displayShelvesRouter);
-
+app.use('/displayshelves', displayShelvesRouter);
+app.use('/api/reviews', reviewsApiRouter);
+app.use('/reviews', reviewsRouter);
+app.use('/api/buildandshelves', buildandshelvesApiRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

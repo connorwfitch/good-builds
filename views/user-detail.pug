@@ -17,15 +17,15 @@ block content
       if locals.user.id === userDetail.id
         a(href="/builds/new").button Add a Build!
     if userDetail.Builds.length
-      .build-grid 
+      .shelf-flex 
         each build in userDetail.Builds
           div(id=`grid-container-${build.id}`).grid-container 
             a(href=`/builds/${build.id}`)
               img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
             .side-by-side
               if locals.user.id === userDetail.id
-                a(href="").button Edit Build
-                a(href="").button.warning Delete Build
+                a(href=`/builds/${build.id}/edit`).button Edit Build
+                a(href=`/builds/${build.id}/delete`).button.warning Delete Build
     else 
       if locals.user.id !== userDetail.id
         h4 It seems #{userDetail.firstName} has no builds at the moment
@@ -33,14 +33,22 @@ block content
     .side-by-side
       h2 #{userDetail.firstName}'s Display Shelves
       if locals.user.id === userDetail.id
-        a(href="/displayShelves/new").button Add a Display Shelf!
+        a(href="/displayshelves/new").button Add a Display Shelf!
     if userDetail.DisplayShelves.length
       each displayShelf in userDetail.DisplayShelves 
-        //- .shelf-grid 
-        //- each build in buildsInShelves.
-        //-   div(id=`grid-container-${build.id}`).grid-container 
-        //-     img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
-        p foo
+        .side-by-side 
+          h2= displayShelf.title 
+          a(href=`/displayshelves/${displayShelf.id}/edit`).button Edit Display Shelf
+          a(href=`/displayshelves/${displayShelf.id}/delete`).button.warning Delete Display Shelf
+        p= displayShelf.subtitle
+        .shelf-flex 
+          each build in displayShelf.Builds
+            .grid-container 
+              a(href=`/builds/${build.id}`)
+                img(src=build.imageLink, alt=`Image of ${build.name}`).grid-image
+              .grid-details
+                p= `Build Status: ${build.BuildAndShelf.buildStatus}`
+        //- p foo
     else 
       if locals.user.id !== userDetail.id
         h4 It seems #{userDetail.firstName} has no display shelves at the moment
